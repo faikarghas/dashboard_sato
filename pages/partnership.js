@@ -14,13 +14,19 @@ import {url} from '../lib/api_url'
 
 
 function Partnership({dataPartnership}) {
-    const [data, setData] = useState('')
+    const [data, setData] = useState(dataPartnership.partnership[0].content)
+    const [content_id, setContent_id] = useState(dataPartnership.partnership[0].content_id)
     const [loading, setLoading] = useState(false)
 
 
-    function handleEditorChange(content) {
+    function handleEditorChange1(content) {
         setData(content)
     }
+
+    function handleEditorChange2(content) {
+        setContent_id(content)
+    }
+
 
 
     function handleSubmit(e) {
@@ -29,14 +35,15 @@ function Partnership({dataPartnership}) {
         fetch(`${url}/api/insertPartnership`,{
             method:'POST',
             headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({content:data})
+            body:JSON.stringify({content:data,content_id:content_id})
         })
         .then((response) => response.json())
         .then((dataRes) => {
-            console.log('Success:', dataRes);
             setLoading(false)
         })
     }
+
+
     return (
         <Drawer>
             <BigCardWrapper>
@@ -44,9 +51,14 @@ function Partnership({dataPartnership}) {
                 <div className="tab-content" id="myTabContent">
                     <div className="tab-pane fade show active" id="mei" role="tabpanel" aria-labelledby="mei-tab">
                         <h3 style={{marginBottom:'4rem'}}><b>Partnership</b></h3>
-                        <form onSubmit={handleSubmit} style={{textAlign:'right'}}>
+                        <form onSubmit={handleSubmit} style={{textAlign:'left'}}>
                             <div className="editor__wrapper">
-                                <Editor handleEditorChange={handleEditorChange} value={dataPartnership.partnership[0]}/>
+                                <h3>EN</h3>
+                                <Editor handleEditorChange={handleEditorChange1} value={dataPartnership.partnership[0].content}/>
+                            </div>
+                            <div className="editor__wrapper">
+                                <h3>ID</h3>
+                                <Editor handleEditorChange={handleEditorChange2} value={dataPartnership.partnership[0].content_id}/>
                             </div>
                             <Button className="button_submit" variant="outlined" color="primary" type="submit" disabled={loading} >
                                 {loading ? <CircularProgress size={24} className="buttonProgress" /> : 'Submit'}
@@ -72,7 +84,6 @@ Partnership.getInitialProps = async (ctx) => {
     const res = await fetch(pageRequest)
     const json = await res.json()
 
-    console.log(json);
 
     if(ctx.res){
       ctx.res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')

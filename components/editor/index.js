@@ -6,10 +6,8 @@ const Index = ({handleEditorChange,value}) => {
 
     useEffect(() => {
         if (value) {
-            setData(value.content)
+            setData(value)
         }
-
-        console.log(value);
     }, [])
 
     return (

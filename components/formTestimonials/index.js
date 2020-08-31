@@ -9,7 +9,7 @@ import {url as globUrl} from '../../lib/api_url'
 import {useFormik } from 'formik'
 import * as Yup from 'yup';
 
-const FormCareer = ({testimonials,idTestimonials,url,edit}) => {
+const FormTestimonials = ({testimonials,idTestimonials,url,edit}) => {
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState(testimonials);
     const [imgUrl, setImgUrl] = useState();
@@ -275,4 +275,4 @@ const FormCareer = ({testimonials,idTestimonials,url,edit}) => {
     )
 }
 
-export default FormCareer
+export default FormTestimonials

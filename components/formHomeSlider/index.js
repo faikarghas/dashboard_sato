@@ -11,8 +11,8 @@ import {url as globUrl} from '../../lib/api_url'
 
 const FormHomeSlider = ({homeSlider,idHomeSlider,url,edit}) => {
     const [loading, setLoading] = useState(false);
-    const [contentEN, setContentEN] = useState(homeSlider);
-    const [contentID, setContentID] = useState(homeSlider);
+    const [contentEN, setContentEN] = useState(homeSlider.homeSlider[0].description_en);
+    const [contentID, setContentID] = useState(homeSlider.homeSlider[0].description_id);
 
     const [imgUrl, setImgUrl] = useState();
     const [showRemove, setShowRemove] = useState('');
@@ -61,7 +61,6 @@ const FormHomeSlider = ({homeSlider,idHomeSlider,url,edit}) => {
             })
             .then((response) => response.json())
             .then((dataRes) => {
-                console.log('Success:', dataRes);
                 setLoading(false)
                 setTimeout(() => {
                     router.push('/home-slider')
@@ -111,7 +110,7 @@ const FormHomeSlider = ({homeSlider,idHomeSlider,url,edit}) => {
             setImgUrl( `${globUrl}/images/${homeSlider.homeSlider[0].imageName}`)
         }
 
-        console.log(homeSlider.homeSlider);
+        console.log(homeSlider.homeSlider[0].description_en);
     }, [])
 
 
@@ -146,11 +145,11 @@ const FormHomeSlider = ({homeSlider,idHomeSlider,url,edit}) => {
 
                     <div style={{marginBottom:'4rem'}}>
                         <h3>EN</h3>
-                        <Editor handleEditorChange={handleEditorChangeEN} value={{content:homeSlider.homeSlider[0].description_en}}/>
+                        <Editor handleEditorChange={handleEditorChangeEN} value={homeSlider.homeSlider[0].description_en}/>
                     </div>
                     <div >
                         <h3>ID</h3>
-                        <Editor handleEditorChange={handleEditorChangeID} value={{content:homeSlider.homeSlider[0].description_id}}/>
+                        <Editor handleEditorChange={handleEditorChangeID} value={homeSlider.homeSlider[0].description_id}/>
                     </div>
 
                 </Grid>

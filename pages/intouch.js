@@ -14,15 +14,19 @@ import {url} from '../lib/api_url'
 
 
 function Intouch({dataIntouch}) {
-    const [data, setData] = useState('')
+    const [data, setData] = useState(dataIntouch.intouch[0].content)
+    const [content_id, setContent_id] = useState(dataIntouch.intouch[0].content_id)
     const [loading, setLoading] = useState(false)
 
 
-    function handleEditorChange(content) {
+    function handleEditorChange1(content) {
         setData(content)
     }
 
-    console.log(dataIntouch);
+    function handleEditorChange2(content) {
+        setContent_id(content)
+    }
+
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -30,7 +34,7 @@ function Intouch({dataIntouch}) {
         fetch(`${url}/api/insertIntouch`,{
             method:'POST',
             headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({content:data})
+            body:JSON.stringify({content:data,content_id:content_id})
         })
         .then((response) => response.json())
         .then((dataRes) => {
@@ -46,9 +50,14 @@ function Intouch({dataIntouch}) {
                 <div className="tab-content" id="myTabContent">
                     <div className="tab-pane fade show active" id="mei" role="tabpanel" aria-labelledby="mei-tab">
                         <h3 style={{marginBottom:'4rem'}}><b>Intouch</b></h3>
-                        <form onSubmit={handleSubmit} style={{textAlign:'right'}}>
+                        <form onSubmit={handleSubmit} style={{textAlign:'left'}}>
                             <div className="editor__wrapper">
-                                <Editor handleEditorChange={handleEditorChange} value={dataIntouch.intouch[0]}/>
+                                <h3>EN</h3>
+                                <Editor handleEditorChange={handleEditorChange1} value={dataIntouch.intouch[0].content}/>
+                            </div>
+                            <div className="editor__wrapper">
+                                <h3>ID</h3>
+                                <Editor handleEditorChange={handleEditorChange2} value={dataIntouch.intouch[0].content_id}/>
                             </div>
                             <Button className="button_submit" variant="outlined" color="primary" type="submit" disabled={loading} >
                                 {loading ? <CircularProgress size={24} className="buttonProgress" /> : 'Submit'}
@@ -74,7 +83,6 @@ Intouch.getInitialProps = async (ctx) => {
     const res = await fetch(pageRequest)
     const json = await res.json()
 
-    console.log(json);
 
     if(ctx.res){
       ctx.res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
