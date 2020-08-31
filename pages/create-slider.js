@@ -1,5 +1,5 @@
 import React from 'react'
-import FormHomeSlider from '../components/FormHomeSlider/index'
+import FormHomeSlider from '../components/formHomeSlider/index'
 import BigCardWrapper from '../components/bigCard/index'
 import Drawer from '../components/drawer'
 import {url} from '../lib/api_url'

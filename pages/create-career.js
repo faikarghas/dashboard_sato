@@ -1,5 +1,5 @@
 import React from 'react'
-import FormCareer from '../components/FormCareer/index'
+import FormCareer from '../components/formCareer/index'
 import BigCardWrapper from '../components/bigCard/index'
 import Drawer from '../components/drawer'
 import {url} from '../lib/api_url'
