@@ -1,0 +1,275 @@
+main{
+    position: relative;
+}
+
+.box_action{
+    height: 5rem;
+    background-color: white;
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,.2);
+    margin-bottom: 4rem;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    h2{
+        margin: 0;
+    }
+}
+
+
+.avatar {
+    margin: 8px;
+    background-color: #000000 !important;
+    box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.39) !important;
+}
+
+.MuiAppBar-colorPrimary{
+    background-color: #1c1e1e !important;
+}
+
+.inputCategory{
+    width: 100%;
+    margin-top: 16px !important;
+    margin-bottom: 8px !important;
+    input{
+        height: 2.4rem !important;
+    }
+}
+
+.text-select{
+    .MuiSelect-selectMenu{
+        font-size: 1.2rem;
+        height: 19px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+.button_wrapper{
+    margin-top: 5rem !important;
+    text-align: right;
+}
+
+.MuiGridListTileBar-title{
+    text-transform: uppercase;
+}
+
+textarea{
+    font-size: 1.4rem !important;
+    line-height: normal !important;
+    &::placeholder{
+        font-size:1.4rem;
+    }
+}
+
+input{
+    font-size: 1.4rem !important;
+    line-height: normal !important;
+    &::placeholder{
+        font-size:1.4rem;
+    }
+}
+
+fieldset legend{
+    font-size: 1.75em !important;
+}
+
+.PrivateNotchedOutline-legendLabelled-17 {
+    font-size: 1.75em !important;
+}
+
+.PrivateNotchedOutline-legendLabelled-25 {
+    font-size: 1.75em !important;
+}
+
+.rdt_TableHeader{
+    border-bottom: 1px solid black;
+}
+
+.dropzone_Wrapper{
+    margin-bottom: 4rem;
+    position: relative;
+    .dropzone{
+        width: 100%;
+        ul{
+            li{
+                display: inline-block;
+                margin-right: 1rem;
+                text-transform: uppercase;
+            }
+        }
+    }
+
+    .remove{
+        display: none;
+        &.show{
+            display: flex;
+        }
+    }
+}
+
+
+.slider__preview{
+    width: 100%;
+    height: 300px;
+    margin-bottom: 4rem;
+    border: 1px solid black;
+
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.gallery__listWrapper{
+}
+
+.img_list_wrapper{
+    height: 200px;
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}
+
+
+.modal__upload{
+    width: 500px;
+    // height: 500px;
+    min-height: 500px;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 20%);
+    background-color: rgb(255, 255, 255);
+    z-index: 999999;
+    transition: all 0.5s;
+    display: none;
+    &.open{
+        display: block;
+    }
+    .modal__header{
+        position: relative;
+        height: 40px;
+        width: 100%;
+        .close__upload{
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            margin: 0;
+            cursor: pointer;
+            font-size: 2rem;
+        }
+    }
+
+    .modal__body{
+        padding: 2rem;
+        .dropzone-1{
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            .img__preview{
+                height: 300px;
+                width: 100%;
+                border: 1px solid black;
+                margin-bottom: 4rem;
+                img{
+                    object-fit: contain;
+                    height: 100%;
+                }
+            }
+        }
+    }
+
+}
+
+.button__upload{
+    width: 140px;
+    height: 40px;
+    text-align: center;
+    background-color: black;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
+
+.button_upload{
+    width: 140px;
+    height: 40px;
+    text-align: center;
+    color: #3f51b5;
+    border: 1px solid rgba(63, 81, 181, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    cursor: pointer;
+    font-weight: 500;
+    line-height: 1.75;
+    border-radius: 4px;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+
+    &:hover{
+        border: 1px solid #3f51b5;
+        background-color: rgba(63, 81, 181, 0.04);
+    }
+}
+
+.action__wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.overlay__modal{
+    z-index: 99999;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.521);
+    transition: all 0.5s;
+    display: none;
+    &.open{
+        display: block;
+    }
+}
+
+.category__wrapper{
+    border: 1px solid #c1c1c1;
+    padding: 2rem;
+    .addCategory__wrapper{
+        margin-bottom: 2rem;
+        display: flex;
+        .MuiFormControl-root{
+            margin: 0;
+            margin-right: 2rem;
+        }
+    }
+    
+    .list__category{
+        padding: 2rem 0;
+        border-top: 1px solid #c1c1c1;
+        span{
+            font-size: 1.4rem;
+        }
+    }
+
+    .MuiChip-root{
+        margin-bottom: 1rem;
+    }
+}
+
+.editor__wrapper{
+    margin-bottom: 4rem;
+}
+
