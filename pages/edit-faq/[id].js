@@ -64,7 +64,7 @@ const EditOurTeam = ({faq}) => {
 EditOurTeam.getInitialProps = async (ctx) => {
     const host = ctx.req ? ctx.req.headers['host'] : 'localhost:3014'
     const id = ctx.query.id
-    const res = await fetch(`http://${host}/api/editFaq/${id}`)
+    const res = await fetch(`http://admin.sato.id/api/editFaq/${id}`)
     const dataFaq = await res.json()
 
     if(ctx.res){

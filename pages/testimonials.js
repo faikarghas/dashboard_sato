@@ -35,7 +35,7 @@ function Testimonials({dataTestimonials}) {
 
 Testimonials.getInitialProps = async (ctx) => {
     const host = ctx.req ? ctx.req.headers['host'] : 'localhost:3014'
-    const pageRequest = `http://${host}/api/testimonials`
+    const pageRequest = `http://admin.sato.id/api/testimonials`
     const res = await fetch(pageRequest)
     const json = await res.json()
 

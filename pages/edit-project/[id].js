@@ -72,7 +72,7 @@ const EditProject = ({project,imageProject}) => {
 EditProject.getInitialProps = async (ctx) => {
     const host = ctx.req ? ctx.req.headers['host'] : 'localhost:3014'
     const id = ctx.query.id
-    const res = await fetch(`http://${host}/api/editProject/${id}`)
+    const res = await fetch(`http://admin.sato.id/api/editProject/${id}`)
     const dataProject = await res.json()
 
     const res2 = await fetch(`${url}/api/getImageProject/${dataProject.project[0].idProject}`)

@@ -35,7 +35,7 @@ function OurTeam({dataOurTeam}) {
 
 OurTeam.getInitialProps = async (ctx) => {
     const host = ctx.req ? ctx.req.headers['host'] : 'localhost:3014'
-    const pageRequest = `http://${host}/api/ourTeam`
+    const pageRequest = `http://admin.sato.id/api/ourTeam`
     const res = await fetch(pageRequest)
     const json = await res.json()
 

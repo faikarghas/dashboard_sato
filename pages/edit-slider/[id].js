@@ -61,7 +61,7 @@ const EditHomeSlider = ({homeSlider}) => {
 EditHomeSlider.getInitialProps = async (ctx) => {
     const host = ctx.req ? ctx.req.headers['host'] : 'localhost:3014'
     const id = ctx.query.id
-    const res = await fetch(`http://${host}/api/editHomeSlider/${id}`)
+    const res = await fetch(`http://admin.sato.id/api/editHomeSlider/${id}`)
     const dataSlider = await res.json()
 
 

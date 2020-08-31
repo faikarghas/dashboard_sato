@@ -80,7 +80,7 @@ function Partnership({dataPartnership}) {
 
 Partnership.getInitialProps = async (ctx) => {
     const host = ctx.req ? ctx.req.headers['host'] : 'localhost:3014'
-    const pageRequest = `http://${host}/api/partnership`
+    const pageRequest = `http://admin.sato.id/api/partnership`
     const res = await fetch(pageRequest)
     const json = await res.json()
 

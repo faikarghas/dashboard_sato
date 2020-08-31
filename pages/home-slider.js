@@ -35,7 +35,7 @@ function HomeSlider({dataHomeSlider}) {
 
 HomeSlider.getInitialProps = async (ctx) => {
     const host = ctx.req ? ctx.req.headers['host'] : 'localhost:3014'
-    const pageRequest = `http://${host}/api/homeSlider`
+    const pageRequest = `http://admin.sato.id/api/homeSlider`
     const res = await fetch(pageRequest)
     const json = await res.json()
 

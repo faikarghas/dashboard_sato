@@ -164,12 +164,12 @@ function Index({dataCategory,dataProjectTitle}) {
 
 Index.getInitialProps = async (ctx) => {
   const host = ctx.req ? ctx.req.headers['host'] : 'localhost:3014'
-  const pageRequest = `http://${host}/api/category`
+  const pageRequest = `http://admin.sato.id/api/category`
   const res = await fetch(pageRequest)
   const json = await res.json()
 
 
-  const pageRequest2 = `http://${host}/api/project`
+  const pageRequest2 = `http://admin.sato.id/api/project`
   const res2 = await fetch(pageRequest2)
   const json2 = await res2.json()
 
