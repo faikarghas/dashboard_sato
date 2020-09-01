@@ -23,8 +23,8 @@ const category = [
       label: 'SHOW UNITS',
     },
     {
-      value: 'resedentials',
-      label: 'RESEDENTIALS',
+      value: 'residentials',
+      label: 'RESiDENTIALS',
     },
     {
       value: 'SELECT CATEGORY',
