@@ -22,7 +22,7 @@ const category = [
       label: 'RETAILS',
     },
     {
-      value: 'show units',
+      value: 'show-units',
       label: 'SHOW UNITS',
     },
     {

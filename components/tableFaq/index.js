@@ -56,8 +56,9 @@ const Index = ({dataFaq}) => {
     const columns = React.useMemo(clickHandler => [
         {
           name: 'Question',
-          selector: 'question_en',
+          cell: (row) => <div style={{width:'100%',textAlign:'left'}}><p>{row.question_en}</p></div>,
           sortable: true,
+          allowOverflow: true,
           grow: 2,
         },
         // {
