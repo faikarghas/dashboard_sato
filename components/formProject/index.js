@@ -1,10 +1,13 @@
-import React,{useState} from 'react'
+import React,{useState, createRef} from 'react'
 import { useRouter } from 'next/router'
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Button, CircularProgress } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
+import Dropzone from 'react-dropzone'
+import {url} from '../../lib/api_url'
+
 
 import {useFormik } from 'formik'
 import * as Yup from 'yup';
@@ -36,6 +39,10 @@ const FormProject = ({project,idProject,url,edit}) => {
     const [selectCategory, setSelectCategory] = useState('SELECT CATEGORY');
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState(project);
+    const [imgUrl, setImgUrl] = useState();
+    const [showRemove, setShowRemove] = useState('');
+    const [imgFile, setImgFile] = useState([]);
+    const dropzoneRef = createRef();
     const router = useRouter()
 
     let formik
@@ -54,28 +61,29 @@ const FormProject = ({project,idProject,url,edit}) => {
                 projectCategory: selectCategory,
                 desc_en:data.project[0].description_en,
                 desc_id:data.project[0].description_id
+
             },
             validationSchema: Yup.object({
             }),
             onSubmit: (values,{setFieldError,resetForm}) => {
-                const dataFormik = {
-                    name: values.name,
-                    client:values.client,
-                    duration: values.duration,
-                    location: values.location,
-                    architect: values.architect,
-                    area: values.area,
-                    year: values.year,
-                    category: selectCategory,
-                    desc_en: values.desc_en,
-                    desc_id: values.desc_id,
-                    idProject: idProject
-                }
-                setLoading(true)
+                // setLoading(true)
+                const dataForm = new FormData()
+                dataForm.append('name',  values.name)
+                dataForm.append('client',  values.client)
+                dataForm.append('duration',  values.duration)
+                dataForm.append('location',  values.location)
+                dataForm.append('architect',  values.architect)
+                dataForm.append('area',  values.area)
+                dataForm.append('year',  values.year)
+                dataForm.append('category',  selectCategory)
+                dataForm.append('desc_en',  values.desc_en)
+                dataForm.append('desc_id',  values.desc_id)
+                dataForm.append('idProject',  idProject)
+                dataForm.append('file', imgFile)
+
                 fetch(url,{
                     method:'POST',
-                    headers:{'Content-Type':'application/json'},
-                    body:JSON.stringify(dataFormik)
+                    body:dataForm
                 })
                 .then((response) => response.json())
                 .then((dataRes) => {
@@ -104,23 +112,23 @@ const FormProject = ({project,idProject,url,edit}) => {
             validationSchema: Yup.object({
             }),
             onSubmit: (values,{setFieldError,resetForm}) => {
-                const dataFormik = {
-                    name: values.name,
-                    client:values.client,
-                    duration: values.duration,
-                    location: values.location,
-                    architect: values.architect,
-                    area: values.area,
-                    year: values.year,
-                    category: selectCategory,
-                    desc_en: values.desc_en,
-                    desc_id: values.desc_id,
-                }
                 setLoading(true)
+                const dataForm = new FormData()
+                dataForm.append('name',  values.name)
+                dataForm.append('client',  values.client)
+                dataForm.append('duration',  values.duration)
+                dataForm.append('location',  values.location)
+                dataForm.append('architect',  values.architect)
+                dataForm.append('area',  values.area)
+                dataForm.append('year',  values.year)
+                dataForm.append('category',  selectCategory)
+                dataForm.append('desc_en',  values.desc_en)
+                dataForm.append('desc_id',  values.desc_id)
+                dataForm.append('file', imgFile)
+
                 fetch(url,{
                     method:'POST',
-                    headers:{'Content-Type':'application/json'},
-                    body:JSON.stringify(dataFormik)
+                    body:dataForm
                 })
                 .then((response) => response.json())
                 .then((dataRes) => {
@@ -139,15 +147,75 @@ const FormProject = ({project,idProject,url,edit}) => {
         setSelectCategory(event.target.value);
     };
 
+    function onDropFile(acceptedFiles) {
+        const reader = new FileReader()
+
+        reader.onabort = () => console.log('file reading was aborted')
+        reader.onerror = () => console.log('file reading has failed')
+        reader.onloadstart = () => {
+            console.log('start')
+        }
+
+        reader.onload = (e) => {
+            console.log('----',e.target)
+        }
+
+        reader.onloadend = function(e) {
+            setImgUrl(reader.result)
+            setShowRemove('show')
+            setImgFile(acceptedFiles[0])
+        };
+
+        reader.readAsDataURL(acceptedFiles[0])
+
+    }
+
+    function remove(acceptedFiles) {
+        setImgUrl('')
+        setShowRemove('')
+    }
+
+    const openDialog = () => {
+        // Note that the ref is set async,
+        // so it might be null at some point
+        if (dropzoneRef.current) {
+            dropzoneRef.current.open()
+        }
+    };
+
     React.useEffect(() => {
-        edit ? setSelectCategory(data.project[0].category) : null
+        if (edit === true) {
+            setImgUrl( `http://localhost:3009/images/${project.project[0].thumbnail}`)
+            setSelectCategory(project.project[0].category)
+            console.log(project.project[0].category);
+        }
+
+
     }, [])
 
 
     return (
         <form  onSubmit={formik.handleSubmit}>
             <Grid container spacing={2}>
-                <Grid item xs={12} md={6} >
+                <Grid item xs={12} md={12}>
+                    <Dropzone onDrop={onDropFile} noClick noKeyboard ref={dropzoneRef}>
+                        {({getRootProps, getInputProps,acceptedFiles}) => (
+                            <section className="dropzone_Wrapper">
+                                <div className="dropzone" {...getRootProps({className:"dropzone-1"})}>
+                                    <input {...getInputProps()} />
+                                    <div className="slider__preview">
+                                        <img src={imgUrl} width="100%"/>
+                                    </div>
+                                    <ul>
+                                        <li><div className="button_upload" onClick={openDialog} >Select Files</div></li>
+                                        <li><div className={`button_upload remove ${showRemove}`} onClick={() => remove(acceptedFiles)}>REMOVE</div></li>
+                                    </ul>
+                                </div>
+                            </section>
+                        )}
+                    </Dropzone>
+                </Grid>
+                <Grid item xs={12} md={6}>
                     <TextField
                         label="Name" 
                         variant="outlined"

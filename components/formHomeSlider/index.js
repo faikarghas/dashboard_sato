@@ -13,13 +13,10 @@ const FormHomeSlider = ({homeSlider,idHomeSlider,url,edit}) => {
     const [loading, setLoading] = useState(false);
     const [contentEN, setContentEN] = useState(homeSlider ? homeSlider.homeSlider[0].description_en : '');
     const [contentID, setContentID] = useState(homeSlider ? homeSlider.homeSlider[0].description_id : '');
-
     const [imgUrl, setImgUrl] = useState();
     const [showRemove, setShowRemove] = useState('');
     const [imgFile, setImgFile] = useState([]);
-
     const dropzoneRef = createRef();
-
     const router = useRouter()
 
     let handleSubmit

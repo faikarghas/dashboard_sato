@@ -75,7 +75,7 @@ EditProject.getInitialProps = async (ctx) => {
     const res = await fetch(`http://admin.sato.id/api/editProject/${id}`)
     const dataProject = await res.json()
 
-    const res2 = await fetch(`${url}/api/getImageProject/${dataProject.project[0].idProject}`)
+    const res2 = await fetch(`http://api.sato.id/api/getImageProject/${dataProject.project[0].idProject}`)
     const imageProject = await res2.json()
 
     if(ctx.res){
