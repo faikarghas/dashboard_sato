@@ -11,8 +11,8 @@ import {url as globUrl} from '../../lib/api_url'
 
 const FormHomeSlider = ({homeSlider,idHomeSlider,url,edit}) => {
     const [loading, setLoading] = useState(false);
-    const [contentEN, setContentEN] = useState(homeSlider.homeSlider[0].description_en);
-    const [contentID, setContentID] = useState(homeSlider.homeSlider[0].description_id);
+    const [contentEN, setContentEN] = useState(homeSlider ? homeSlider.homeSlider[0].description_en : '');
+    const [contentID, setContentID] = useState(homeSlider ? homeSlider.homeSlider[0].description_id : '');
 
     const [imgUrl, setImgUrl] = useState();
     const [showRemove, setShowRemove] = useState('');
@@ -110,7 +110,6 @@ const FormHomeSlider = ({homeSlider,idHomeSlider,url,edit}) => {
             setImgUrl( `${globUrl}/images/${homeSlider.homeSlider[0].imageName}`)
         }
 
-        console.log(homeSlider.homeSlider[0].description_en);
     }, [])
 
 
@@ -145,11 +144,11 @@ const FormHomeSlider = ({homeSlider,idHomeSlider,url,edit}) => {
 
                     <div style={{marginBottom:'4rem'}}>
                         <h3>EN</h3>
-                        <Editor handleEditorChange={handleEditorChangeEN} value={homeSlider.homeSlider[0].description_en}/>
+                        <Editor handleEditorChange={handleEditorChangeEN} value={contentEN}/>
                     </div>
                     <div >
                         <h3>ID</h3>
-                        <Editor handleEditorChange={handleEditorChangeID} value={homeSlider.homeSlider[0].description_id}/>
+                        <Editor handleEditorChange={handleEditorChangeID} value={contentID}/>
                     </div>
 
                 </Grid>
