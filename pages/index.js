@@ -1,17 +1,20 @@
 import React,{useState,useEffect} from 'react'
 import Router from 'next/router'
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import { Button, CircularProgress } from '@material-ui/core'
+
+import {url} from '../lib/api_url'
 import Drawer from '../components/drawer'
 import {getCookie} from '../lib/cookie'
 import * as action from '../redux/actionIndex'
 import Chip from '@material-ui/core/Chip';
 import BigCardWrapper from '../components/bigCard/index'
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import { Button, CircularProgress } from '@material-ui/core'
-import {url} from '../lib/api_url'
+import ListOtherProject from '../components/listOtherProjects/index'
 
 
-function Index({dataCategory,dataProjectTitle}) {
+
+function Index({dataCategory,dataProjectTitle,listProject,listOtherProject}) {
   const [category,setCategory] = useState([])
   const [project_en,setProject_en] = useState('')
   const [project_id,setProject_id] = useState('')
@@ -156,6 +159,11 @@ function Index({dataCategory,dataProjectTitle}) {
               {list_category}
             </div>
           </div>
+          <div className="category__wrapper">
+            <h2><b>Other Projects</b></h2>
+            <br/>
+            <ListOtherProject listProject={listProject} listOtherProject={listOtherProject}/>
+          </div>
         </BigCardWrapper>
       </Drawer>
     </div>
@@ -168,10 +176,18 @@ Index.getInitialProps = async (ctx) => {
   const res = await fetch(pageRequest)
   const json = await res.json()
 
-
   const pageRequest2 = `http://admin.sato.id/api/project`
   const res2 = await fetch(pageRequest2)
   const json2 = await res2.json()
+
+  const pageRequest3 = `http://api.sato.id/api/project`
+  const res3 = await fetch(pageRequest3)
+  const json3 = await res3.json()
+
+  const pageRequest4 = `http://api.sato.id/api/getOtherProjects`
+  const res4 = await fetch(pageRequest4)
+  const json4 = await res4.json()
+
 
   if(ctx.res){
     ctx.res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
@@ -192,7 +208,7 @@ Index.getInitialProps = async (ctx) => {
       }
   }
 
-  return { dataCategory: json, dataProjectTitle:json2 }
+  return { dataCategory: json, dataProjectTitle:json2,listProject:json3,listOtherProject: json4 }
 
 }
 

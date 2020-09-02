@@ -185,9 +185,8 @@ const FormProject = ({project,idProject,url,edit}) => {
 
     React.useEffect(() => {
         if (edit === true) {
-            setImgUrl( `http://localhost:3009/images/${project.project[0].thumbnail}`)
+            setImgUrl( `${url}/images/${project.project[0].thumbnail}`)
             setSelectCategory(project.project[0].category)
-            console.log(project.project[0].category);
         }
 
 
