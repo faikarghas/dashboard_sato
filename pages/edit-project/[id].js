@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -6,6 +6,7 @@ import Tab from '@material-ui/core/Tab';
 
 import {getCookie} from '../../lib/cookie'
 import * as action from '../../redux/actionIndex'
+import { connect } from 'react-redux'
 
 import Drawer from '../../components/drawer'
 import BigCardWrapper from '../../components/bigCard'
@@ -14,7 +15,6 @@ import ImageUpload from '../../components/imageUpload'
 import Gallery from '../../components/gallery'
 
 import {url} from '../../lib/api_url'
-
 
 function a11yProps(index) {
     return {
@@ -41,13 +41,17 @@ function TabPanel(props) {
     );
 }
 
-const EditProject = ({project,imageProject}) => {
+const EditProject = ({project,imageProject,images,addImg}) => {
     const [value, setValue] = React.useState(0);
 
     const handleChangeTab = (event, newValue) => {
         setValue(newValue);
     };
 
+
+    useEffect(() => {
+        addImg(imageProject)
+    }, [])
 
     return (
         <Drawer>
@@ -70,9 +74,8 @@ const EditProject = ({project,imageProject}) => {
 }
 
 EditProject.getInitialProps = async (ctx) => {
-    const host = ctx.req ? ctx.req.headers['host'] : 'localhost:3014'
     const id = ctx.query.id
-    const res = await fetch(`http://admin.sato.id/api/editProject/${id}`)
+    const res = await fetch(`http://api.sato.id/api/editProject/${id}`)
     const dataProject = await res.json()
 
     const res2 = await fetch(`http://api.sato.id/api/getImageProject/${dataProject.project[0].idProject}`)
@@ -101,6 +104,17 @@ EditProject.getInitialProps = async (ctx) => {
     return { project: dataProject, imageProject: imageProject }
 }
 
+const mapStateToProps = (state) => {
+    return {
+      images: state.auth.images
+    }
+}
 
+const mapDispatchToProps = dispatch => {
+    return {
+        addImg: (images) => dispatch(action.addImg(images))
+    }
+}
 
-export default EditProject
+export default connect(mapStateToProps,mapDispatchToProps)(EditProject)
+

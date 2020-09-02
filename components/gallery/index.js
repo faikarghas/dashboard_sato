@@ -189,6 +189,7 @@ function Gallery({id,images,addImg,url}) {
     </IconButton>
   );
 
+  console.log(images,'images');
 
 return (
       <React.Fragment>
