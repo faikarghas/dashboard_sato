@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
@@ -35,10 +35,10 @@ function intersection(a, b) {
 
 export default function TransferList({listProject,listOtherProject}) {
   const classes = useStyles();
-  const [checked, setChecked] = React.useState([]);
-  const [left, setLeft] = React.useState(listProject.project);
-  const [right, setRight] = React.useState([]);
-  const [maxList, setMaxList] = React.useState(2);
+  const [checked, setChecked] =useState([]);
+  const [left, setLeft] =useState(listProject.project);
+  const [right, setRight] =useState([]);
+  const [maxList, setMaxList] =useState(8);
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
@@ -107,11 +107,9 @@ export default function TransferList({listProject,listOtherProject}) {
 //     setRight([]);
 //   };
 
-    React.useEffect(() => {
+   useEffect(() => {
 
         let l = listOtherProject.other_projects[0].listproject.split(',').map(Number)
-
-        console.log(l);
 
         let p = listProject.project.filter((item,i)=>{
             return l.includes(item.idProject)
