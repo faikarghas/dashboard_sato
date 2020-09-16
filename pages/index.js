@@ -172,19 +172,19 @@ function Index({dataCategory,dataProjectTitle,listProject,listOtherProject}) {
 
 Index.getInitialProps = async (ctx) => {
   const host = ctx.req ? ctx.req.headers['host'] : 'localhost:3014'
-  const pageRequest = `http://admin.sato.id/api/category`
+  const pageRequest = `https://admin.sato.id/api/category`
   const res = await fetch(pageRequest)
   const json = await res.json()
 
-  const pageRequest2 = `http://admin.sato.id/api/project`
+  const pageRequest2 = `https://admin.sato.id/api/project`
   const res2 = await fetch(pageRequest2)
   const json2 = await res2.json()
 
-  const pageRequest3 = `http://api.sato.id/api/project`
+  const pageRequest3 = `https://api.sato.id/api/project`
   const res3 = await fetch(pageRequest3)
   const json3 = await res3.json()
 
-  const pageRequest4 = `http://api.sato.id/api/getOtherProjects`
+  const pageRequest4 = `https://api.sato.id/api/getOtherProjects`
   const res4 = await fetch(pageRequest4)
   const json4 = await res4.json()
 

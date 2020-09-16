@@ -70,7 +70,7 @@ const EditTestimonials = ({testimonials,imageTestimonials}) => {
 EditTestimonials.getInitialProps = async (ctx) => {
     const host = ctx.req ? ctx.req.headers['host'] : 'localhost:3014'
     const id = ctx.query.id
-    const res = await fetch(`http://admin.sato.id/api/editTestimonials/${id}`)
+    const res = await fetch(`https://admin.sato.id/api/editTestimonials/${id}`)
     const dataTestimonials = await res.json()
 
     const res2 = await fetch(`${url}/api/getImageTestimonials/${dataTestimonials.testimonials[0].idtestimonials}`)

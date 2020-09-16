@@ -44,7 +44,7 @@ function UploadImage({idProject,url,id}) {
         files={files}
         allowMultiple={true}
         maxFiles={1}
-        server="http://api.sato.com/api/uploadImage"
+        server="https://api.sato.com/api/uploadImage"
         name="files" 
         labelIdle='Drag  Drop your files or <span class="filepond--label-action">Browse</span>'
         onaddfile={() =>handleUpload()}

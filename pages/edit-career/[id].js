@@ -68,7 +68,7 @@ const EditCareer = ({career}) => {
 EditCareer.getInitialProps = async (ctx) => {
     const host = ctx.req ? ctx.req.headers['host'] : 'localhost:3014'
     const id = ctx.query.id
-    const res = await fetch(`http://admin.sato.id/api/editCareer/${id}`)
+    const res = await fetch(`https://admin.sato.id/api/editCareer/${id}`)
     const dataCareer = await res.json()
 
 

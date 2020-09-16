@@ -70,7 +70,7 @@ export default function TransferList({listProject,listOtherProject}) {
         setLeft(not(left, leftChecked));
         setChecked(not(checked, leftChecked));
 
-        fetch('http://api.sato.id/api/insertOtherProjects',{
+        fetch('https://api.sato.id/api/insertOtherProjects',{
             method:'POST',
             headers:{'Content-Type':'application/json'},
             body:JSON.stringify({listproject:right.concat(leftChecked)})
@@ -91,7 +91,7 @@ export default function TransferList({listProject,listOtherProject}) {
     setRight(not(right, rightChecked));
     setChecked(not(checked, rightChecked));
 
-    fetch('http://api.sato.id/api/insertOtherProjects',{
+    fetch('https://api.sato.id/api/insertOtherProjects',{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({listproject:not(right, rightChecked)})

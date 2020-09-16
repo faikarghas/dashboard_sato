@@ -75,10 +75,10 @@ const EditProject = ({project,imageProject,images,addImg}) => {
 
 EditProject.getInitialProps = async (ctx) => {
     const id = ctx.query.id
-    const res = await fetch(`http://api.sato.id/api/editProject/${id}`)
+    const res = await fetch(`https://api.sato.id/api/editProject/${id}`)
     const dataProject = await res.json()
 
-    const res2 = await fetch(`http://api.sato.id/api/getImageProject/${dataProject.project[0].idProject}`)
+    const res2 = await fetch(`https://api.sato.id/api/getImageProject/${dataProject.project[0].idProject}`)
     const imageProject = await res2.json()
 
     if(ctx.res){

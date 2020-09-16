@@ -71,7 +71,7 @@ const EditStudies = ({studies,imageStudies}) => {
 EditStudies.getInitialProps = async (ctx) => {
     const host = ctx.req ? ctx.req.headers['host'] : 'localhost:3014'
     const id = ctx.query.id
-    const res = await fetch(`http://admin.sato.id/api/editStudies/${id}`)
+    const res = await fetch(`https://admin.sato.id/api/editStudies/${id}`)
     const dataStudies = await res.json()
 
 
