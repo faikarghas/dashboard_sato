@@ -54,6 +54,7 @@ function Gallery({id,images,addImg,url}) {
   const [open, setOpen] = useState('');
   const [imgFile, setImgFile] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [btnUpload, setBtnUpload] = useState(true);
 
   const dropzoneRef = createRef();
 
@@ -68,7 +69,7 @@ function Gallery({id,images,addImg,url}) {
       {
         cell: (row) => <div className="img_list_wrapper"><img src={`${globUrl}/images/${row.name}`} width="100%"/></div>,
         allowOverflow: true,
-        width:'256px',
+        width:'270px',
       },
       {
         cell: (row) => <div className="iconWrapper"><DeleteIcon onClick={()=>_deleteHandler(row.idImages,row.name)} /></div>,
@@ -163,6 +164,7 @@ function Gallery({id,images,addImg,url}) {
     reader.onloadend = function(e) {
         setImgUrl(reader.result)
         setImgFile(acceptedFiles[0])
+        setBtnUpload(false)
     };
 
     reader.readAsDataURL(acceptedFiles[0])
@@ -214,12 +216,13 @@ return (
                       <input {...getInputProps()} />
                       <div className="img__preview">
                         <img src={imgUrl} width="100%" />
+                        {btnUpload ? <div className="button_upload btn_upload" onClick={openDialog} >Select Images</div>  : ''}
                       </div>
                   </div>
               )}
             </Dropzone>
             <div className="action__wrapper">
-              <div className="button__upload" onClick={openDialog}>Pilih</div>
+              {/* <div className="button__upload" onClick={openDialog}>Pilih</div> */}
               <div onClick={handleUpload}>
               <Button  className="button_submit" variant="outlined" color="primary"  disabled={loading} >
                     {loading ? <CircularProgress size={24} className="buttonProgress" /> : 'Submit'}

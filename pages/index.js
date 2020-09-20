@@ -68,13 +68,12 @@ function Index({dataCategory,dataProjectTitle,listProject,listOtherProject}) {
 
         setLoading2(false)
     })
-
   }
 
 
   useEffect(() => {
     setListCategory(dataCategory.category)
-    console.log(dataProjectTitle.projectTitle);
+
     if (dataProjectTitle.projectTitle[0]) {
       setProject_en(dataProjectTitle.projectTitle[0].description_en)
       setProject_id(dataProjectTitle.projectTitle[0].description_id)
@@ -97,50 +96,11 @@ function Index({dataCategory,dataProjectTitle,listProject,listOtherProject}) {
       <Drawer>
         <BigCardWrapper>
           <div className="category__wrapper">
-            <h2><b>Project Title</b></h2>
-            <br/>
-              <div className="addCategory__wrapper">
-                <TextField
-                  label="Project EN" 
-                  variant="outlined"
-                  margin="normal"
-                  id="project_en"
-                  placeholder="Project EN"
-                  name="project_en"
-                  type="text"
-                  autoComplete='off'
-                  fullWidth
-                  multiline
-                  rows={5}
-                  onChange={e => setProject_en(e.target.value)} 
-                  value={project_en}
-                />
-                <TextField
-                  label="Project ID" 
-                  variant="outlined"
-                  margin="normal"
-                  id="project_id"
-                  placeholder="Project ID"
-                  name="project_id"
-                  type="text"
-                  autoComplete='off'
-                  fullWidth
-                  multiline
-                  rows={5}
-                  onChange={e => setProject_id(e.target.value)} 
-                  value={project_id}
-                />
-                <Button className="button_submit" variant="outlined" color="primary" onClick={submitValue1} disabled={loading1} >
-                    {loading1 ? <CircularProgress size={24} className="buttonProgress" /> : 'Submit'}
-                </Button>
-               </div>
-          </div>
-          <div className="category__wrapper">
             <h2><b>Category</b></h2>
             <br/>
               <div className="addCategory__wrapper">
                 <TextField
-                  label="Category" 
+                  label="Category"
                   variant="outlined"
                   margin="normal"
                   id="title_en"
@@ -148,7 +108,7 @@ function Index({dataCategory,dataProjectTitle,listProject,listOtherProject}) {
                   name="title_en"
                   type="text"
                   autoComplete='off'
-                  onChange={e => setCategory(e.target.value)} 
+                  onChange={e => setCategory(e.target.value)}
                   value={category}
                 />
                 <Button className="button_submit" variant="outlined" color="primary" onClick={submitValue2} disabled={loading2} >
@@ -171,7 +131,6 @@ function Index({dataCategory,dataProjectTitle,listProject,listOtherProject}) {
 }
 
 Index.getInitialProps = async (ctx) => {
-  const host = ctx.req ? ctx.req.headers['host'] : 'localhost:3014'
   const pageRequest = `https://admin.sato.id/api/category`
   const res = await fetch(pageRequest)
   const json = await res.json()

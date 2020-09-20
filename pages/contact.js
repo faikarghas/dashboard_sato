@@ -3,26 +3,22 @@ import fetch from 'isomorphic-unfetch';
 import Router from 'next/router'
 import { CSVLink, CSVDownload } from "react-csv";
 
-import {url} from '../lib/api_url'
 import {getCookie} from '../lib/cookie'
-import {absoluteUrl} from '../lib/absoluteUrl'
 import * as action from '../redux/actionIndex'
 
 import BigCardWrapper from '../components/bigCard/index'
 import Drawer from '../components/drawer'
-import HomeSliderTable from '../components/tableHomeSlider/index'
-import FormHomeSlider from '../components/formHomeSlider/index'
+import FaqTable from '../components/tableFaq/index'
+import ContactTable from '../components/tableContact/index'
 
-
-function HomeSlider({dataHomeSlider}) {
+function Contact({dataContact}) {
     return (
         <Drawer>
             <BigCardWrapper>
             <div className="pad-">
                 <div className="tab-content" id="myTabContent">
                     <div className="tab-pane fade show active" id="mei" role="tabpanel" aria-labelledby="mei-tab">
-                        <HomeSliderTable dataHomeSlider={dataHomeSlider} />
-                        <FormHomeSlider edit={false}  url={`${url}/api/insertHomeSlider`}/>
+                        <ContactTable dataContact={dataContact} />
                     </div>
                 </div>
                 <style jsx>{`
@@ -37,10 +33,8 @@ function HomeSlider({dataHomeSlider}) {
 }
 
 
-HomeSlider.getInitialProps = async (ctx) => {
-    const { origin } = absoluteUrl(ctx.req, "localhost:3014");
-
-    const pageRequest = `${origin}/api/homeSlider`
+Contact.getInitialProps = async (ctx) => {
+    const pageRequest = `https://api.sato.id/api/getContactPromo`
     const res = await fetch(pageRequest)
     const json = await res.json()
 
@@ -63,8 +57,8 @@ HomeSlider.getInitialProps = async (ctx) => {
         }
     }
 
-    return { dataHomeSlider: json }
+    return { dataContact: json.message }
 }
 
 
-export default HomeSlider
+export default Contact

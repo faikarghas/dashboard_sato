@@ -21,9 +21,11 @@ export const authenticate = (email,password) => {
       })
       .then(response => {
         if (response.success !== true) {
-            response.code === 'email_wrong' ? dispatch({type: actionTypes.EMAIL_LOGIN_INFORMATION, message: response.data.message}) : null;
+            console.log(response);
 
-            response.code === 'pass_wrong' ? dispatch({type: actionTypes.PASSWORD_LOGIN_INFORMATION, message: response.data.message}) : null;
+            response.code === 'email_wrong' ? dispatch({type: actionTypes.EMAIL_LOGIN_INFORMATION, message: response.message}) : null;
+
+            response.code === 'pass_wrong' ? dispatch({type: actionTypes.PASSWORD_LOGIN_INFORMATION, message: response.message}) : null;
 
             setTimeout(() => {
               dispatch({type: actionTypes.EMAIL_LOGIN_INFORMATION, message:null });
@@ -40,7 +42,7 @@ export const authenticate = (email,password) => {
 
             resolve(response.success)
 
-            Router.push('/')
+            Router.push('/projects')
           }
 
       })
@@ -74,6 +76,5 @@ export const deauthenticate = () => {
 export const addImg = (images) => {
   return dispatch => {
     dispatch({type: actionTypes.ADD_IMAGE_LIST, payload: images});
-    console.log(images,'000000000000');
   };
 };

@@ -4,6 +4,7 @@ import Router from 'next/router'
 import { CSVLink, CSVDownload } from "react-csv";
 
 import {getCookie} from '../lib/cookie'
+import {absoluteUrl} from '../lib/absoluteUrl'
 import * as action from '../redux/actionIndex'
 
 import BigCardWrapper from '../components/bigCard/index'
@@ -13,7 +14,7 @@ import TestimonialsTable from '../components/tableTestimonials/index'
 
 function Testimonials({dataTestimonials}) {
     return (
-        <Drawer>
+        <Drawer submenu={true}>
             <BigCardWrapper>
             <div className="pad-">
                 <div className="tab-content" id="myTabContent">
@@ -34,8 +35,9 @@ function Testimonials({dataTestimonials}) {
 
 
 Testimonials.getInitialProps = async (ctx) => {
-    const host = ctx.req ? ctx.req.headers['host'] : 'localhost:3014'
-    const pageRequest = `https://admin.sato.id/api/testimonials`
+    const { origin } = absoluteUrl(ctx.req, "localhost:3014");
+
+    const pageRequest = `${origin}/api/testimonials`
     const res = await fetch(pageRequest)
     const json = await res.json()
 

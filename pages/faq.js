@@ -4,6 +4,7 @@ import Router from 'next/router'
 import { CSVLink, CSVDownload } from "react-csv";
 
 import {getCookie} from '../lib/cookie'
+import {absoluteUrl} from '../lib/absoluteUrl'
 import * as action from '../redux/actionIndex'
 
 import BigCardWrapper from '../components/bigCard/index'
@@ -34,8 +35,9 @@ function Faq({dataFaq}) {
 
 
 Faq.getInitialProps = async (ctx) => {
-    const host = ctx.req ? ctx.req.headers['host'] : 'localhost:3014'
-    const pageRequest = `https://admin.sato.id/api/faq`
+    const { origin } = absoluteUrl(ctx.req, "localhost:3014");
+
+    const pageRequest = `${origin}/api/faq`
     const res = await fetch(pageRequest)
     const json = await res.json()
 

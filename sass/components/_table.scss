@@ -48,6 +48,24 @@
     font-size: 1.5rem;
 }
 
+.rdt_TableHeader{
+    padding: 0 !important;
+    .IconButtonCustom{
+        width: 12rem;
+        padding: 0;
+        &:hover{
+            background-color: transparent !important;
+        }
+        span{
+            a{
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+    }
+}
+
 // thead[data-test="table-foot"]{
 //     display: none;
 // }

@@ -12,6 +12,8 @@ import BigCardWrapper from '../../components/bigCard'
 import FormCareer from '../../components/formCareer'
 
 import {url} from '../../lib/api_url'
+import {absoluteUrl} from '../../lib/absoluteUrl'
+
 
 function a11yProps(index) {
     return {
@@ -66,9 +68,10 @@ const EditCareer = ({career}) => {
 }
 
 EditCareer.getInitialProps = async (ctx) => {
-    const host = ctx.req ? ctx.req.headers['host'] : 'localhost:3014'
+    const { origin } = absoluteUrl(ctx.req, "localhost:3014");
     const id = ctx.query.id
-    const res = await fetch(`https://admin.sato.id/api/editCareer/${id}`)
+
+    const res = await fetch(`${origin}/api/editCareer/${id}`)
     const dataCareer = await res.json()
 
 

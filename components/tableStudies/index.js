@@ -46,7 +46,7 @@ const actions = (
     color="primary"
     className="IconButtonCustom"
   >
-    <Link href="/create-studies"><a><Add /></a></Link>
+    <Link href="/create-studies"><a>Create New <Add /></a></Link>
   </IconButton>
 );
 

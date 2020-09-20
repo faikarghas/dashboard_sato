@@ -11,6 +11,8 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -54,6 +56,7 @@ const useStyles = makeStyles(theme => ({
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
+    padding: "10px 2rem"
   },
   drawerOpen: {
     width: drawerWidth,
@@ -68,10 +71,7 @@ const useStyles = makeStyles(theme => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: 'hidden',
-    width: theme.spacing(7) + 1,
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(6.7) + 1,
-    },
+    width: 0,
   },
   toolbar: {
     display: 'flex',
@@ -90,6 +90,8 @@ function MiniDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
+  const [openSub, setOpenSub] = React.useState(props.submenu);
+  const [openSub2, setOpenSub2] = React.useState(props.submenuCt);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -98,6 +100,14 @@ function MiniDrawer(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const showSubMenu = () => {
+    setOpenSub(!openSub)
+  }
+  
+  const showSubMenu2 = () => {
+    setOpenSub2(!openSub2)
+  }
 
 
   return (
@@ -143,83 +153,112 @@ function MiniDrawer(props) {
         </div>
         <Divider />
         <List>
-            <Link href="/">
-                <a style={{textDecoration:'none',color:'black'}}>
-                    <ListItem button>
-                    <ListItemIcon><HomeIcon /></ListItemIcon>
-                    <ListItemText primary={'Home'} />
-                    </ListItem>
-                </a>
-            </Link>
-            <Link href="/home-slider">
-                <a style={{textDecoration:'none',color:'black'}}>
-                    <ListItem button>
-                    <ListItemIcon><PagesIcon /></ListItemIcon>
-                    <ListItemText primary={'Home Slider'} />
-                    </ListItem>
-                </a>
-            </Link>
             <Link href="/projects">
                 <a style={{textDecoration:'none',color:'black'}}>
                     <ListItem button>
-                    <ListItemIcon><PagesIcon /></ListItemIcon>
-                    <ListItemText primary={'Projects'} />
+                    <ListItemText primary={'Project'} />
                     </ListItem>
                 </a>
             </Link>
-            <Link href="/career">
-                <a style={{textDecoration:'none',color:'black'}}>
-                    <ListItem button>
-                    <ListItemIcon><PagesIcon /></ListItemIcon>
-                    <ListItemText primary={'Career'} />
-                    </ListItem>
-                </a>
-            </Link>
+            <a style={{textDecoration:'none',color:'black'}} onClick={showSubMenu}>
+                <ListItem button>
+                  <ListItemText primary={'Ideas + People'} />
+                  {openSub ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon/>}
+                </ListItem>
+            </a>
+            <div style={{display: openSub ? 'block' : 'none', paddingLeft: '1rem', backgroundColor: '#f7f7f7' }}>
+                <ul>
+                  <li>
+                    <Link href="/testimonials">
+                    <a style={{textDecoration:'none',color:'black'}}>
+                        <ListItem button>
+                        <ListItemText primary={'Testimonials'} />
+                        </ListItem>
+                    </a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/our-team">
+                        <a style={{textDecoration:'none',color:'black'}}>
+                            <ListItem button>
+                            <ListItemText primary={'Our Team'} />
+                            </ListItem>
+                        </a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/partnership">
+                        <a style={{textDecoration:'none',color:'black'}}>
+                            <ListItem button>
+                            <ListItemText primary={'Partnership'} />
+                            </ListItem>
+                        </a>
+                    </Link>
+                  </li>
+                </ul>
+            </div>
             <Link href="/studies">
                 <a style={{textDecoration:'none',color:'black'}}>
                     <ListItem button>
-                    <ListItemIcon><PagesIcon /></ListItemIcon>
                     <ListItemText primary={'Studies'} />
-                    </ListItem>
-                </a>
-            </Link>
-            <Link href="/testimonials">
-                <a style={{textDecoration:'none',color:'black'}}>
-                    <ListItem button>
-                    <ListItemIcon><PagesIcon /></ListItemIcon>
-                    <ListItemText primary={'Testimonials'} />
-                    </ListItem>
-                </a>
-            </Link>
-            <Link href="/our-team">
-                <a style={{textDecoration:'none',color:'black'}}>
-                    <ListItem button>
-                    <ListItemIcon><PagesIcon /></ListItemIcon>
-                    <ListItemText primary={'Our Team'} />
-                    </ListItem>
-                </a>
-            </Link>
-            <Link href="/faq">
-                <a style={{textDecoration:'none',color:'black'}}>
-                    <ListItem button>
-                    <ListItemIcon><PagesIcon /></ListItemIcon>
-                    <ListItemText primary={'FAQ'} />
-                    </ListItem>
-                </a>
-            </Link>
-            <Link href="/partnership">
-                <a style={{textDecoration:'none',color:'black'}}>
-                    <ListItem button>
-                    <ListItemIcon><PagesIcon /></ListItemIcon>
-                    <ListItemText primary={'Partnership'} />
                     </ListItem>
                 </a>
             </Link>
             <Link href="/intouch">
                 <a style={{textDecoration:'none',color:'black'}}>
                     <ListItem button>
-                    <ListItemIcon><PagesIcon /></ListItemIcon>
                     <ListItemText primary={'Intouch'} />
+                    </ListItem>
+                </a>
+            </Link>
+            <Link href="/career">
+                <a style={{textDecoration:'none',color:'black'}}>
+                    <ListItem button>
+                    <ListItemText primary={'Career'} />
+                    </ListItem>
+                </a>
+            </Link>
+            <a style={{textDecoration:'none',color:'black'}} onClick={showSubMenu2}>
+                <ListItem button>
+                <ListItemText primary={'Contact'} />
+                {openSub2 ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon/>}
+                </ListItem>
+            </a>
+            <div style={{display: openSub2 ? 'block' : 'none', paddingLeft: '1rem', backgroundColor: '#f7f7f7' }}>
+                <ul>
+                  <li>
+                    <Link href="/leads">
+                    <a style={{textDecoration:'none',color:'black'}}>
+                        <ListItem button>
+                        <ListItemText primary={'Leads'} />
+                        </ListItem>
+                    </a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/leads-promo">
+                        <a style={{textDecoration:'none',color:'black'}}>
+                            <ListItem button>
+                            <ListItemText primary={'Leads Promo'} />
+                            </ListItem>
+                        </a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/email-receivers">
+                        <a style={{textDecoration:'none',color:'black'}}>
+                            <ListItem button>
+                            <ListItemText primary={'Email Receivers'} />
+                            </ListItem>
+                        </a>
+                    </Link>
+                  </li>
+                </ul>
+            </div>
+            <Link href="/faq">
+                <a style={{textDecoration:'none',color:'black'}}>
+                    <ListItem button>
+                    <ListItemText primary={'FAQ'} />
                     </ListItem>
                 </a>
             </Link>
@@ -228,7 +267,6 @@ function MiniDrawer(props) {
         <List>
           {['Log Out'].map((text, index) => (
             <ListItem button key={index} onClick={()=>props.deauthenticate()}>
-              <ListItemIcon><ExitToAppIcon /></ListItemIcon>
               <ListItemText primary={'Log Out'} />
             </ListItem>
            ))}

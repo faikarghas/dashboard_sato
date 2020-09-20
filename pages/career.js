@@ -3,6 +3,7 @@ import fetch from 'isomorphic-unfetch';
 import Router from 'next/router'
 
 import {getCookie} from '../lib/cookie'
+import {absoluteUrl} from '../lib/absoluteUrl'
 import * as action from '../redux/actionIndex'
 
 import BigCardWrapper from '../components/bigCard/index'
@@ -33,8 +34,9 @@ function Career({dataCareer}) {
 
 
 Career.getInitialProps = async (ctx) => {
-    const host = ctx.req ? ctx.req.headers['host'] : 'localhost:3014'
-    const pageRequest = `https://admin.sato.id/api/career`
+    const { origin } = absoluteUrl(ctx.req, "localhost:3014");
+
+    const pageRequest = `${origin}/api/career`
     const res = await fetch(pageRequest)
     const json = await res.json()
 

@@ -41,7 +41,7 @@ const customStyles = {
 };
 
 
-const Index = ({dataCategory}) => {
+const Index = ({dataContact}) => {
     const [data,setData] = useState([])
     const [open, setOpen] = useState('');
 
@@ -65,10 +65,16 @@ const Index = ({dataCategory}) => {
 
     const columns = React.useMemo(clickHandler => [
         {
-          name: 'Question',
-          selector: 'question_en',
+          name: 'Name',
+          selector: 'name',
           sortable: true,
           grow: 2,
+        },
+        {
+            name: 'Email',
+            selector: 'email',
+            sortable: true,
+            grow: 2,
         },
         // {
         //   cell: (row) => <Switch id={row.id} name={row.pembicara_nama} status={row.status}/>,
@@ -76,59 +82,11 @@ const Index = ({dataCategory}) => {
         //   button: true,
         //   width:'56px'
         // },
-        {
-          cell: (row) => <div className="iconWrapper"><Link href={`/edit-faq/[id]`} as={`/edit-faq/${row.idfaq}`}><a><EditIcon/></a></Link></div>,
-          allowOverflow: true,
-          button: true,
-          width:'56px'
-        },
-        {
-          cell: (row) => <div className="iconWrapper"><DeleteIcon onClick={()=>_deleteHandler(row.idfaq)} /></div>,
-          allowOverflow: true,
-          button: true,
-          width:'56px'
-        },
     ]);
 
-    function _deleteHandler(idContent) {
-
-        swal({
-          title: "Are you sure?",
-          text: "Once deleted, you will not be able to recover this imaginary file!",
-          icon: "warning",
-          buttons: true,
-          dangerMode: true,
-        })
-        .then((willDelete) => {
-          if (willDelete) {
-
-            fetch(`${globUrl}/api/deleteCategory`,{
-              method:'POST',
-              headers:{'Content-Type':'application/json'},
-              body:JSON.stringify({
-                id:idContent
-              })
-            })
-            .then(res=>res.json())
-            .then(resJson=>{
-              let newData = data.filter(data=>{
-                return data.idfaq !== idContent
-              })
-              setData(newData)
-              swal("Poof! Your imaginary file has been deleted!", {
-                icon: "success",
-              });
-            })
-          } else {
-            swal("Your imaginary file is safe!");
-          }
-        });
-
-
-    }
 
     useEffect(() => {
-      setData(dataCategory.category)
+      setData(dataContact)
     }, [])
 
     return (
@@ -140,7 +98,6 @@ const Index = ({dataCategory}) => {
             customStyles={customStyles}
             highlightOnHover
             pointerOnHover
-            actions={actions}
         />
           <div className={`overlay__modal ${open}`}></div>
           <div className={`modal__upload ${open}`}>

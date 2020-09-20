@@ -6,7 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { Button, CircularProgress } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import Dropzone from 'react-dropzone'
-import {url} from '../../lib/api_url'
+import {url as globURL} from '../../lib/api_url'
 
 
 import {useFormik } from 'formik'
@@ -27,7 +27,7 @@ const category = [
     },
     {
       value: 'residentials',
-      label: 'RESiDENTIALS',
+      label: 'RESIDENTIALS',
     },
     {
       value: 'SELECT CATEGORY',
@@ -42,6 +42,7 @@ const FormProject = ({project,idProject,url,edit}) => {
     const [imgUrl, setImgUrl] = useState();
     const [showRemove, setShowRemove] = useState('');
     const [imgFile, setImgFile] = useState([]);
+    const [btnUpload, setBtnUpload] = useState(true);
     const dropzoneRef = createRef();
     const router = useRouter()
 
@@ -164,6 +165,7 @@ const FormProject = ({project,idProject,url,edit}) => {
             setImgUrl(reader.result)
             setShowRemove('show')
             setImgFile(acceptedFiles[0])
+            setBtnUpload(false)
         };
 
         reader.readAsDataURL(acceptedFiles[0])
@@ -185,7 +187,7 @@ const FormProject = ({project,idProject,url,edit}) => {
 
     React.useEffect(() => {
         if (edit === true) {
-            setImgUrl( `${url}/images/${project.project[0].thumbnail}`)
+            setImgUrl( `${globURL}/images/${project.project[0].thumbnail}`)
             setSelectCategory(project.project[0].category)
         }
 
@@ -204,11 +206,11 @@ const FormProject = ({project,idProject,url,edit}) => {
                                     <input {...getInputProps()} />
                                     <div className="slider__preview">
                                         <img src={imgUrl} width="100%"/>
+                                        {btnUpload ? <div className="button_upload btn_upload" onClick={openDialog} >Select Images</div>  : ''}
                                     </div>
-                                    <ul>
-                                        <li><div className="button_upload" onClick={openDialog} >Select Files</div></li>
+                                    {/* <ul>
                                         <li><div className={`button_upload remove ${showRemove}`} onClick={() => remove(acceptedFiles)}>REMOVE</div></li>
-                                    </ul>
+                                    </ul> */}
                                 </div>
                             </section>
                         )}

@@ -1,4 +1,7 @@
 import React, {useState} from 'react';
+import {useFormik } from 'formik'
+import * as Yup from 'yup';
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,11 +16,12 @@ import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Snackbar from '@material-ui/core/Snackbar';
+
 import { connect } from 'react-redux'
 import * as action from '../redux/actionIndex'
 
-import {useFormik } from 'formik'
-import * as Yup from 'yup';
+
 
 function Copyright() {
   return (
@@ -47,34 +51,55 @@ const useStyles = makeStyles(theme => ({
 
 function SignIn({authenticate}) {
   const classes = useStyles();
-
   const [loading, setLoading] = useState(false);
+  const [state, setState] = React.useState({
+    open: false,
+    vertical: 'top',
+    horizontal: 'center',
+  });
 
-    const formik = useFormik({
-        initialValues: {
-          email:'',
-          password:'',
-        },
-        validationSchema: Yup.object({
-            email: Yup.string()
-                .email('Sorry, that is not a valid email address')
-                .required('Cannot be left blank'),
-            password: Yup.string()
-                .required('Cannot be left blank')
-        }),
-        onSubmit: (values,{setFieldError,resetForm}) => {
-            const data = {
-                email: values.email,
-                password: values.password,
-            }
-            setLoading(true)
-            authenticate(values.email,values.password).then((res)=>{
+  const { vertical, horizontal, open } = state;
+
+  const handleClick = (newState) => () => {
+    setState({ open: true, ...newState });
+  };
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+
+  const formik = useFormik({
+      initialValues: {
+        email:'',
+        password:'',
+      },
+      validationSchema: Yup.object({
+          email: Yup.string()
+              .email('Sorry, that is not a valid email address')
+              .required('Cannot be left blank'),
+          password: Yup.string()
+              .required('Cannot be left blank')
+      }),
+      onSubmit: (values,{setFieldError,resetForm}) => {
+          const data = {
+              email: values.email,
+              password: values.password,
+          }
+          setLoading(true)
+          authenticate(values.email,values.password).then((res)=>{
+            console.log(res);
+            if (res){
               setLoading(false)
-            })
-
-
-        },
-    });
+            } else {
+              setLoading(false)
+              setState({ ...state, open: true });
+              setTimeout(() => {
+                setState({ ...state, open: false });
+              }, 2000);
+            }
+          })
+      },
+  });
 
   return (
     <Container component="main" maxWidth="xs">
@@ -128,6 +153,13 @@ function SignIn({authenticate}) {
             {loading ? <CircularProgress size={24} className="buttonProgress" /> : ' Sign In'}
           </Button>
         </form>
+        <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={open}
+        onClose={handleClose}
+        message="Wrong Password"
+        key={vertical + horizontal}
+        />
       </div>
       <Box mt={8}>
         <Copyright />

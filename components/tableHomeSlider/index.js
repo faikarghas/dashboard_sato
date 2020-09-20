@@ -129,7 +129,7 @@ const Index = ({dataHomeSlider}) => {
             customStyles={customStyles}
             highlightOnHover
             pointerOnHover
-            actions={actions}
+            // actions={actions}
         />
     )
 }

@@ -113,6 +113,17 @@ fieldset legend{
     height: 300px;
     margin-bottom: 4rem;
     border: 1px solid black;
+    position: relative;
+
+    .btn_upload{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        &:hover{
+            background-color: rgba(255, 255, 255, 0.842);
+        }
+    }
 
     img{
         width: 100%;
@@ -137,7 +148,7 @@ fieldset legend{
 .modal__upload{
     width: 500px;
     // height: 500px;
-    min-height: 500px;
+    // min-height: 500px;
     position: fixed;
     top: 0;
     left: 50%;
@@ -176,6 +187,15 @@ fieldset legend{
                 width: 100%;
                 border: 1px solid black;
                 margin-bottom: 4rem;
+                position: relative;
+
+                .btn_upload{
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%,-50%);
+                }
+
                 img{
                     object-fit: contain;
                     height: 100%;
@@ -255,7 +275,7 @@ fieldset legend{
             margin-right: 2rem;
         }
     }
-    
+
     .list__category{
         padding: 2rem 0;
         border-top: 1px solid #c1c1c1;

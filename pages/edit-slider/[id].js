@@ -12,6 +12,7 @@ import BigCardWrapper from '../../components/bigCard'
 import FormHomeSlider from '../../components/formHomeSlider'
 
 import {url} from '../../lib/api_url'
+import {absoluteUrl} from '../../lib/absoluteUrl'
 
 
 function a11yProps(index) {
@@ -59,9 +60,10 @@ const EditHomeSlider = ({homeSlider}) => {
 }
 
 EditHomeSlider.getInitialProps = async (ctx) => {
-    const host = ctx.req ? ctx.req.headers['host'] : 'localhost:3014'
+    const { origin } = absoluteUrl(ctx.req, "localhost:3014");
     const id = ctx.query.id
-    const res = await fetch(`https://admin.sato.id/api/editHomeSlider/${id}`)
+
+    const res = await fetch(`${origin}/api/editHomeSlider/${id}`)
     const dataSlider = await res.json()
 
 

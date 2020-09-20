@@ -12,7 +12,7 @@ import BigCardWrapper from '../../components/bigCard'
 import FormOurTeam from '../../components/formOurTeam'
 
 import {url} from '../../lib/api_url'
-
+import {absoluteUrl} from '../../lib/absoluteUrl'
 
 function a11yProps(index) {
     return {
@@ -63,9 +63,10 @@ const EditOurTeam = ({ourTeam}) => {
 }
 
 EditOurTeam.getInitialProps = async (ctx) => {
-    const host = ctx.req ? ctx.req.headers['host'] : 'localhost:3014'
+    const { origin } = absoluteUrl(ctx.req, "localhost:3014");
     const id = ctx.query.id
-    const res = await fetch(`https://admin.sato.id/api/editOurTeam/${id}`)
+
+    const res = await fetch(`${origin}/api/editOurTeam/${id}`)
     const dataOurTeam = await res.json()
 
     if(ctx.res){

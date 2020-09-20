@@ -16,6 +16,8 @@ const FormHomeSlider = ({homeSlider,idHomeSlider,url,edit}) => {
     const [imgUrl, setImgUrl] = useState();
     const [showRemove, setShowRemove] = useState('');
     const [imgFile, setImgFile] = useState([]);
+    const [btnUpload, setBtnUpload] = useState(true);
+
     const dropzoneRef = createRef();
     const router = useRouter()
 
@@ -83,6 +85,7 @@ const FormHomeSlider = ({homeSlider,idHomeSlider,url,edit}) => {
             setImgUrl(reader.result)
             setShowRemove('show')
             setImgFile(acceptedFiles[0])
+            // setBtnUpload(false)
         };
 
         reader.readAsDataURL(acceptedFiles[0])
@@ -129,11 +132,11 @@ const FormHomeSlider = ({homeSlider,idHomeSlider,url,edit}) => {
                                 <input {...getInputProps()} />
                                 <div className="slider__preview">
                                     <img src={imgUrl} width="100%"/>
+                                    {btnUpload ? <div className="button_upload btn_upload" onClick={openDialog} >Select Images</div>  : ''}
                                 </div>
-                                <ul>
-                                    <li><div className="button_upload" onClick={openDialog} >Select Files</div></li>
+                                {/* <ul>
                                     <li><div className={`button_upload remove ${showRemove}`} onClick={() => remove(acceptedFiles)}>REMOVE</div></li>
-                                </ul>
+                                </ul> */}
                             </div>
                         </section>
                     )}

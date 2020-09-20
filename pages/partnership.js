@@ -5,6 +5,7 @@ import { CSVLink, CSVDownload } from "react-csv";
 import { Button, CircularProgress } from '@material-ui/core'
 
 import {getCookie} from '../lib/cookie'
+import {absoluteUrl} from '../lib/absoluteUrl'
 import * as action from '../redux/actionIndex'
 
 import BigCardWrapper from '../components/bigCard/index'
@@ -45,8 +46,8 @@ function Partnership({dataPartnership}) {
 
 
     return (
-        <Drawer>
-            <BigCardWrapper>
+        <Drawer submenu={true}>
+            <BigCardWrapper >
             <div className="pad-">
                 <div className="tab-content" id="myTabContent">
                     <div className="tab-pane fade show active" id="mei" role="tabpanel" aria-labelledby="mei-tab">
@@ -79,8 +80,9 @@ function Partnership({dataPartnership}) {
 
 
 Partnership.getInitialProps = async (ctx) => {
-    const host = ctx.req ? ctx.req.headers['host'] : 'localhost:3014'
-    const pageRequest = `https://admin.sato.id/api/partnership`
+    const { origin } = absoluteUrl(ctx.req, "localhost:3014");
+
+    const pageRequest = `${origin}/api/partnership`
     const res = await fetch(pageRequest)
     const json = await res.json()
 
