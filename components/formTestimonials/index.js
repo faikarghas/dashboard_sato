@@ -15,6 +15,7 @@ const FormTestimonials = ({testimonials,idTestimonials,url,edit}) => {
     const [imgUrl, setImgUrl] = useState();
     const [showRemove, setShowRemove] = useState('');
     const [imgFile, setImgFile] = useState([]);
+    const [btnUpload, setBtnUpload] = useState(true);
     const router = useRouter()
 
     const dropzoneRef = createRef();
@@ -101,7 +102,6 @@ const FormTestimonials = ({testimonials,idTestimonials,url,edit}) => {
         });
     }
 
-    
     function onDropFile(acceptedFiles) {
         const reader = new FileReader()
 
@@ -150,23 +150,26 @@ const FormTestimonials = ({testimonials,idTestimonials,url,edit}) => {
     return (
         <form  onSubmit={formik.handleSubmit}>
             <Grid container spacing={2}>
-                <Grid item xs={12} md={12} >
-                <Dropzone onDrop={onDropFile} noClick noKeyboard ref={dropzoneRef}>
-                    {({getRootProps, getInputProps,acceptedFiles}) => (
-                        <section className="dropzone_Wrapper">
-                            <div className="dropzone" {...getRootProps({className:"dropzone-1"})}>
-                                <input {...getInputProps()} />
-                                <div className="slider__preview">
-                                    <img src={imgUrl} width="100%"/>
+                <Grid item xs={12} md={6} >
+                    <Dropzone onDrop={onDropFile} noClick noKeyboard ref={dropzoneRef}>
+                        {({getRootProps, getInputProps,acceptedFiles}) => (
+                            <section className="dropzone_Wrapper">
+                                <div className="dropzone" {...getRootProps({className:"dropzone-1"})}>
+                                    <input {...getInputProps()} />
+                                    <div className="slider__preview">
+                                        <img src={imgUrl} width="100%"/>
+                                        {btnUpload ? <div className="button_upload btn_upload" onClick={openDialog}>Select Images</div>  : ''}
+                                    </div>
+                                    {/* <ul>
+                                        <li><div className="button_upload" onClick={openDialog} >Select Files</div></li>
+                                        <li><div className={`button_upload remove ${showRemove}`} onClick={() => remove(acceptedFiles)}>REMOVE</div></li>
+                                    </ul> */}
                                 </div>
-                                <ul>
-                                    <li><div className="button_upload" onClick={openDialog} >Select Files</div></li>
-                                    <li><div className={`button_upload remove ${showRemove}`} onClick={() => remove(acceptedFiles)}>REMOVE</div></li>
-                                </ul>
-                            </div>
-                        </section>
-                    )}
+                            </section>
+                        )}
                     </Dropzone>
+                </Grid>
+                <Grid item xs={12} md={12} >
                     <TextField
                         label="Name" 
                         variant="outlined"

@@ -14,14 +14,8 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import HomeIcon from '@material-ui/icons/Home';
-import PagesIcon from '@material-ui/icons/Pages';
-import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import Link from 'next/link'
-import {getCookie} from '../lib/cookie'
 import * as action from '../redux/actionIndex'
 import { connect } from 'react-redux'
 
@@ -104,7 +98,7 @@ function MiniDrawer(props) {
   const showSubMenu = () => {
     setOpenSub(!openSub)
   }
-  
+
   const showSubMenu2 = () => {
     setOpenSub2(!openSub2)
   }

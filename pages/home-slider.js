@@ -16,23 +16,21 @@ import FormHomeSlider from '../components/formHomeSlider/index'
 
 function HomeSlider({dataHomeSlider}) {
     return (
-        <Drawer>
-            <BigCardWrapper>
-            <div className="pad-">
-                <div className="tab-content" id="myTabContent">
-                    <div className="tab-pane fade show active" id="mei" role="tabpanel" aria-labelledby="mei-tab">
-                        <HomeSliderTable dataHomeSlider={dataHomeSlider} />
-                        <FormHomeSlider edit={false}  url={`${url}/api/insertHomeSlider`}/>
-                    </div>
+        <BigCardWrapper>
+        <div className="pad-">
+            <div className="tab-content" id="myTabContent">
+                <div className="tab-pane fade show active" id="mei" role="tabpanel" aria-labelledby="mei-tab">
+                    <HomeSliderTable dataHomeSlider={dataHomeSlider} />
+                    <FormHomeSlider edit={false}  url={`${url}/api/insertHomeSlider`}/>
                 </div>
-                <style jsx>{`
-                        .pad-1{
-                        padding:1rem;
-                        }
-                `}</style>
             </div>
-            </BigCardWrapper>
-        </Drawer>
+            <style jsx>{`
+                    .pad-1{
+                    padding:1rem;
+                    }
+            `}</style>
+        </div>
+        </BigCardWrapper>
     )
 }
 
