@@ -86,6 +86,8 @@ function MiniDrawer(props) {
   const [open, setOpen] = React.useState(true);
   const [openSub, setOpenSub] = React.useState(props.submenu);
   const [openSub2, setOpenSub2] = React.useState(props.submenuCt);
+  const [page, setPage] = React.useState('');
+
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -103,6 +105,9 @@ function MiniDrawer(props) {
     setOpenSub2(!openSub2)
   }
 
+  useEffect(() => {
+    setPage(window.location.href.split('/')[3])
+  }, [])
 
   return (
     <div className={classes.root}>
@@ -146,23 +151,27 @@ function MiniDrawer(props) {
           </IconButton>
         </div>
         <Divider />
-        <List>
-            <Link href="/projects">
-                <a style={{textDecoration:'none',color:'black'}}>
-                    <ListItem button>
-                    <ListItemText primary={'Project'} />
-                    </ListItem>
-                </a>
-            </Link>
-            <a style={{textDecoration:'none',color:'black'}} onClick={showSubMenu}>
-                <ListItem button>
-                  <ListItemText primary={'Ideas + People'} />
-                  {openSub ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon/>}
-                </ListItem>
-            </a>
+        <ul>
+            <li className={page === 'projects' ? 'active' : ''}>
+              <Link href="/projects">
+                  <a style={{textDecoration:'none',color:'black'}} >
+                      <ListItem button >
+                        <ListItemText primary={'Project'} />
+                      </ListItem>
+                  </a>
+              </Link>
+            </li>
+            <li >
+              <a style={{textDecoration:'none',color:'black'}} onClick={showSubMenu}>
+                  <ListItem button>
+                    <ListItemText primary={'Ideas + People'} />
+                    {openSub ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon/>}
+                  </ListItem>
+              </a>
+            </li>
             <div style={{display: openSub ? 'block' : 'none', paddingLeft: '1rem', backgroundColor: '#f7f7f7' }}>
                 <ul>
-                  <li>
+                  <li className={page === 'testimonials' ? 'active' : ''}>
                     <Link href="/testimonials">
                     <a style={{textDecoration:'none',color:'black'}}>
                         <ListItem button>
@@ -171,7 +180,7 @@ function MiniDrawer(props) {
                     </a>
                     </Link>
                   </li>
-                  <li>
+                  <li className={page === 'our-team' ? 'active' : ''}>
                     <Link href="/our-team">
                         <a style={{textDecoration:'none',color:'black'}}>
                             <ListItem button>
@@ -191,33 +200,41 @@ function MiniDrawer(props) {
                   </li>
                 </ul>
             </div>
-            <Link href="/studies">
-                <a style={{textDecoration:'none',color:'black'}}>
-                    <ListItem button>
-                    <ListItemText primary={'Studies'} />
-                    </ListItem>
-                </a>
-            </Link>
-            <Link href="/intouch">
-                <a style={{textDecoration:'none',color:'black'}}>
-                    <ListItem button>
-                    <ListItemText primary={'Intouch'} />
-                    </ListItem>
-                </a>
-            </Link>
-            <Link href="/career">
-                <a style={{textDecoration:'none',color:'black'}}>
-                    <ListItem button>
-                    <ListItemText primary={'Career'} />
-                    </ListItem>
-                </a>
-            </Link>
-            <a style={{textDecoration:'none',color:'black'}} onClick={showSubMenu2}>
-                <ListItem button>
-                <ListItemText primary={'Contact'} />
-                {openSub2 ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon/>}
-                </ListItem>
-            </a>
+            <li>
+              <Link href="/studies">
+                  <a style={{textDecoration:'none',color:'black'}}>
+                      <ListItem button>
+                      <ListItemText primary={'Studies'} />
+                      </ListItem>
+                  </a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/intouch">
+                  <a style={{textDecoration:'none',color:'black'}}>
+                      <ListItem button>
+                      <ListItemText primary={'Intouch'} />
+                      </ListItem>
+                  </a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/career">
+                  <a style={{textDecoration:'none',color:'black'}}>
+                      <ListItem button>
+                      <ListItemText primary={'Career'} />
+                      </ListItem>
+                  </a>
+              </Link>
+            </li>
+            <li>
+              <a style={{textDecoration:'none',color:'black'}} onClick={showSubMenu2}>
+                  <ListItem button>
+                  <ListItemText primary={'Contact'} />
+                  {openSub2 ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon/>}
+                  </ListItem>
+              </a>
+            </li>
             <div style={{display: openSub2 ? 'block' : 'none', paddingLeft: '1rem', backgroundColor: '#f7f7f7' }}>
                 <ul>
                   <li>
@@ -249,14 +266,16 @@ function MiniDrawer(props) {
                   </li>
                 </ul>
             </div>
-            <Link href="/faq">
-                <a style={{textDecoration:'none',color:'black'}}>
-                    <ListItem button>
-                    <ListItemText primary={'FAQ'} />
-                    </ListItem>
-                </a>
-            </Link>
-        </List>
+            <li>
+              <Link href="/faq">
+                  <a style={{textDecoration:'none',color:'black'}}>
+                      <ListItem button>
+                      <ListItemText primary={'FAQ'} />
+                      </ListItem>
+                  </a>
+              </Link>
+            </li>
+        </ul>
         <Divider />
         <List>
           {['Log Out'].map((text, index) => (

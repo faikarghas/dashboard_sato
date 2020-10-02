@@ -25,7 +25,7 @@ const FormHomeSlider = ({homeSlider,idHomeSlider,url,edit}) => {
 
     if (edit === true) {
         handleSubmit = function handleSubmit(e) {
-            e.preventDefault()
+            // e.preventDefault()
             setLoading(true)
 
             const dataForm = new FormData()
@@ -47,7 +47,6 @@ const FormHomeSlider = ({homeSlider,idHomeSlider,url,edit}) => {
         }
     } else {
         handleSubmit = function handleSubmit(e) {
-            e.preventDefault()
             setLoading(true)
             const dataForm = new FormData()
             dataForm.append('desc_en', contentEN)
@@ -61,9 +60,7 @@ const FormHomeSlider = ({homeSlider,idHomeSlider,url,edit}) => {
             .then((response) => response.json())
             .then((dataRes) => {
                 setLoading(false)
-                setTimeout(() => {
-                    router.push('/home-slider')
-                }, 1500);
+                router.replace(window.location.pathname)
             })
         }
     }
