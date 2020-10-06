@@ -6,12 +6,12 @@ import IconButton from '@material-ui/core/IconButton';
 import Add from '@material-ui/icons/Add';
 import Link from 'next/link'
 import swal from 'sweetalert';
+
 import {url as globUrl} from '../../lib/api_url'
-
 import Switch from '../toggleSwitch/index'
-
 import {convertMonth} from '../../lib/date'
 
+import InputOrder from '../inputOrder/index'
 
 const customStyles = {
     headRow: {
@@ -66,11 +66,11 @@ const Index = ({dataProject}) => {
           sortable: true,
           grow: 2,
         },
-        {
-          cell: (row) => <div className="form-order"><input type="number" /></div>,
+        { 
+          cell: (row) => <InputOrder id={row.idProject} order={row.reorder}/>,
           allowOverflow: true,
           button: true,
-          width:'56px'
+          width:'50px'
         },
         {
           cell: (row) => <div className="iconWrapper"><Link href={`/edit-project/[id]`} as={`/edit-project/${row.idProject}`}><a><EditIcon/></a></Link></div>,
