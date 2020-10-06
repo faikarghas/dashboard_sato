@@ -66,12 +66,12 @@ const Index = ({dataProject}) => {
           sortable: true,
           grow: 2,
         },
-        // {
-        //   cell: (row) => <Switch id={row.id} name={row.pembicara_nama} status={row.status}/>,
-        //   allowOverflow: true,
-        //   button: true,
-        //   width:'56px'
-        // },
+        {
+          cell: (row) => <div className="form-order"><input type="number" /></div>,
+          allowOverflow: true,
+          button: true,
+          width:'56px'
+        },
         {
           cell: (row) => <div className="iconWrapper"><Link href={`/edit-project/[id]`} as={`/edit-project/${row.idProject}`}><a><EditIcon/></a></Link></div>,
           allowOverflow: true,

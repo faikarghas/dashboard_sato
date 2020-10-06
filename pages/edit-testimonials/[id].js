@@ -61,7 +61,7 @@ const EditTestimonials = ({testimonials,imageTestimonials}) => {
                     </Tabs>
                 </AppBar>
                 <TabPanel value={value} index={0}>
-                    <FormTestimonials edit={true} url={`http://localhost:3009/api/editTestimonials`} idTestimonials={testimonials.testimonials[0].idtestimonials} testimonials={testimonials}/>
+                    <FormTestimonials edit={true} url={`${url}/api/editTestimonials`} idTestimonials={testimonials.testimonials[0].idtestimonials} testimonials={testimonials}/>
                 </TabPanel>
             </BigCardWrapper>
         </Drawer>
