@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { Button, CircularProgress } from '@material-ui/core'
+import Editor from '../editor/index'
 
 import {useFormik } from 'formik'
 import * as Yup from 'yup';
@@ -10,11 +11,22 @@ import * as Yup from 'yup';
 const FormCareer = ({career,idCareer,url,edit}) => {
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState(career);
+    const [descEn, setDescEn] = useState();
+    const [descId, setDescId] = useState();
     const router = useRouter()
+
+    function handleEditorChange1(content) {
+        setDescEn(content)
+    }
+
+    function handleEditorChange2(content) {
+        setDescId(content)
+    }
+
 
     let formik
 
-    if (edit === true) {
+    if (edit) {
          formik = useFormik({
             enableReinitialize:true,
             initialValues: {
@@ -27,8 +39,8 @@ const FormCareer = ({career,idCareer,url,edit}) => {
             onSubmit: (values,{setFieldError,resetForm}) => {
                 const dataFormik = {
                     name: values.name,
-                    desc_en: values.desc_en,
-                    desc_id: values.desc_id,
+                    desc_en: descEn,
+                    desc_id: descId,
                     idCareer: idCareer
                 }
                 setLoading(true)
@@ -58,8 +70,8 @@ const FormCareer = ({career,idCareer,url,edit}) => {
             onSubmit: (values,{setFieldError,resetForm}) => {
                 const dataFormik = {
                     name: values.name,
-                    desc_en: values.desc_en,
-                    desc_id: values.desc_id,
+                    desc_en: descEn,
+                    desc_id: descId,
                 }
                 setLoading(true)
                 fetch(url,{
@@ -80,7 +92,10 @@ const FormCareer = ({career,idCareer,url,edit}) => {
     }
 
     React.useEffect(() => {
-        console.log(career);
+        if (edit) {
+            setDescEn(data.career[0].description_en)
+            setDescId(data.career[0].description_id)
+        }
     }, [])
 
     return (
@@ -103,7 +118,15 @@ const FormCareer = ({career,idCareer,url,edit}) => {
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <TextField
+                    <div className="editor__wrapper">
+                        <h3>EN</h3>
+                        <Editor handleEditorChange={handleEditorChange1} value={data ? data.career[0].description_en : ''}/>
+                    </div>
+                    <div className="editor__wrapper">
+                        <h3>ID</h3>
+                        <Editor handleEditorChange={handleEditorChange2} value={data ? data.career[0].description_id : ''}/>
+                    </div>
+                    {/* <TextField
                         label="Description EN" 
                         variant="outlined"
                         margin="normal"
@@ -132,7 +155,7 @@ const FormCareer = ({career,idCareer,url,edit}) => {
                         error={formik.errors.desc_id && formik.touched.desc_id ? true : null}
                         helperText={formik.errors.desc_id && formik.touched.desc_id ? formik.errors.desc_id : null}
                         onChange={formik.handleChange} value={formik.values.desc_id || ''}
-                    />
+                    /> */}
                 </Grid>
             </Grid>
             <Grid item xs={12} className="button_wrapper">

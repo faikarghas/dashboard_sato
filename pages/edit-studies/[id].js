@@ -62,7 +62,7 @@ const EditStudies = ({studies,imageStudies}) => {
                     </Tabs>
                 </AppBar>
                 <TabPanel value={value} index={0}>
-                    <FormStudies edit={true} url={`${url}/api/editStudies`} idstudies={studies.studies[0].idstudies} studies={studies}/>
+                    <FormStudies edit={true} url={`http://localhost:3009/api/editStudies`} idstudies={studies.studies[0].idstudies} studies={studies}/>
                 </TabPanel>
             </BigCardWrapper>
         </Drawer>

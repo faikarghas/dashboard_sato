@@ -17,7 +17,7 @@ const Index = ({handleEditorChange,value}) => {
                 value={data}
                 onEditorChange={handleEditorChange}
                 init={{
-                    content_style: ".mce-content-body p {color: #4d4d4d; font-family: galano-light; font-size: 16px; text-align: justify; }",
+                    content_style: ".mce-content-body p {color: #4d4d4d; font-family: galano-light; font-size: 16px; text-align: justify; margin:0;}",
                     paste_as_text: true,
                     plugins: "paste",
                 }}

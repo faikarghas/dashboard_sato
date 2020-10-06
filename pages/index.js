@@ -72,6 +72,9 @@ function Index({dataCategory,dataProjectTitle,listProject,listOtherProject}) {
 
 
   useEffect(() => {
+
+    window.location.href = `/projects`
+
     setListCategory(dataCategory.category)
 
     if (dataProjectTitle.projectTitle[0]) {
@@ -79,6 +82,8 @@ function Index({dataCategory,dataProjectTitle,listProject,listOtherProject}) {
       setProject_id(dataProjectTitle.projectTitle[0].description_id)
     }
   }, [])
+
+
 
 
   let list_category
