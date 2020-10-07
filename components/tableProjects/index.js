@@ -129,7 +129,7 @@ const Index = ({dataProject}) => {
         <DataTable
             columns={columns}
             data={data} //props
-            pagination
+            // pagination
             customStyles={customStyles}
             highlightOnHover
             pointerOnHover

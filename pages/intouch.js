@@ -56,7 +56,7 @@ function Intouch({dataIntouch,listOtherProject,listProject}) {
                         <div className="category__wrapper" style={{marginBottom:'4rem'}}>
                             <h2><b>Other Projects</b></h2>
                             <br/>
-                            <ListOtherProject listProject={listProject} listOtherProject={listOtherProject}/>
+                            {/* <ListOtherProject listProject={listProject} listOtherProject={listOtherProject}/> */}
                         </div>
                         <form onSubmit={handleSubmit} style={{textAlign:'left'}}>
                             <div className="editor__wrapper">
