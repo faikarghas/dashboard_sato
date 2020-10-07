@@ -10,8 +10,6 @@ import * as action from '../../redux/actionIndex'
 import Drawer from '../../components/drawer'
 import BigCardWrapper from '../../components/bigCard'
 import FormTestimonials from '../../components/formTestimonials'
-import ImageUpload from '../../components/imageUpload'
-import Gallery from '../../components/gallery'
 
 import {url} from '../../lib/api_url'
 import {absoluteUrl} from '../../lib/absoluteUrl'

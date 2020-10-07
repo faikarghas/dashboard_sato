@@ -164,7 +164,6 @@ function Gallery({id,images,addImg,url}) {
     reader.onloadend = function(e) {
         setImgUrl(reader.result)
         setImgFile(acceptedFiles[0])
-        setBtnUpload(false)
     };
 
     reader.readAsDataURL(acceptedFiles[0])
@@ -224,9 +223,9 @@ return (
             <div className="action__wrapper">
               {/* <div className="button__upload" onClick={openDialog}>Pilih</div> */}
               <div onClick={handleUpload}>
-              <Button  className="button_submit" variant="outlined" color="primary"  disabled={loading} >
-                    {loading ? <CircularProgress size={24} className="buttonProgress" /> : 'Submit'}
-              </Button>
+                <Button  className="button_submit" variant="outlined" color="primary"  disabled={loading} >
+                      {loading ? <CircularProgress size={24} className="buttonProgress" /> : 'Submit'}
+                </Button>
               </div>
               {/* <div className="button__upload" >Upload</div> */}
             </div>

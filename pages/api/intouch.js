@@ -7,6 +7,10 @@ export default  async (req, res) => {
     select * from intouch
   `)
 
+  const intouch_slider = await db.query(escape`
+    select * from intouch_slider
+  `)
+
   // res.statusCode = 200
-  res.json({ intouch: intouch})
+  res.json({ intouch: intouch,intouch_slider:intouch_slider})
 }

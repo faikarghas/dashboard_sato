@@ -3,6 +3,9 @@ import fetch from 'isomorphic-unfetch';
 import Router from 'next/router'
 import { CSVLink, CSVDownload } from "react-csv";
 import { Button, CircularProgress } from '@material-ui/core'
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 import {getCookie} from '../lib/cookie'
 import {absoluteUrl} from '../lib/absoluteUrl'
@@ -13,14 +16,43 @@ import BigCardWrapper from '../components/bigCard/index'
 import Drawer from '../components/drawer'
 import Editor from '../components/editor/index'
 import ListOtherProject from '../components/listOtherProjects/index'
+import IntouchTable from '../components/tableIntouch/index'
 import {url} from '../lib/api_url'
 
+function a11yProps(index) {
+    return {
+        id: `simple-tab-${index}`,
+        'aria-controls': `simple-tabpanel-${index}`,
+    };
+}
+
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`simple-tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+            <div>{children}</div>
+        )}
+      </div>
+    );
+}
 
 function Intouch({dataIntouch,listOtherProject,listProject}) {
     const [data, setData] = useState(dataIntouch.intouch[0].content)
     const [content_id, setContent_id] = useState(dataIntouch.intouch[0].content_id)
     const [loading, setLoading] = useState(false)
+    const [value, setValue] = React.useState(0);
 
+    function handleChangeTab(event, newValue) {
+        setValue(newValue);
+    };
 
     function handleEditorChange1(content) {
         setData(content)
@@ -49,36 +81,30 @@ function Intouch({dataIntouch,listOtherProject,listProject}) {
     return (
         <Drawer>
             <BigCardWrapper>
-            <div className="pad-">
-                <div className="tab-content" id="myTabContent">
-                    <div className="tab-pane fade show active" id="mei" role="tabpanel" aria-labelledby="mei-tab">
-                        <h3 style={{marginBottom:'4rem'}}><b>Intouch</b></h3>
-                        <div className="category__wrapper" style={{marginBottom:'4rem'}}>
-                            <h2><b>Other Projects</b></h2>
-                            <br/>
-                            {/* <ListOtherProject listProject={listProject} listOtherProject={listOtherProject}/> */}
+                <AppBar position="static">
+                    <Tabs value={value} onChange={handleChangeTab} aria-label="simple tabs example">
+                    <Tab label="List" {...a11yProps(0)} />
+                    <Tab label="Description" {...a11yProps(1)} />
+                    </Tabs>
+                </AppBar>
+                <TabPanel value={value} index={0}>
+                    <IntouchTable dataIntouchSlider={dataIntouch.intouch_slider}/>
+                </TabPanel>
+                <TabPanel value={value} index={1}>
+                    <form onSubmit={handleSubmit} style={{textAlign:'left',marginTop:'5rem'}}>
+                        <div className="editor__wrapper">
+                            <h3>EN</h3>
+                            <Editor handleEditorChange={handleEditorChange1} value={dataIntouch.intouch[0].content}/>
                         </div>
-                        <form onSubmit={handleSubmit} style={{textAlign:'left'}}>
-                            <div className="editor__wrapper">
-                                <h3>EN</h3>
-                                <Editor handleEditorChange={handleEditorChange1} value={dataIntouch.intouch[0].content}/>
-                            </div>
-                            <div className="editor__wrapper">
-                                <h3>ID</h3>
-                                <Editor handleEditorChange={handleEditorChange2} value={dataIntouch.intouch[0].content_id}/>
-                            </div>
-                            <Button className="button_submit" variant="outlined" color="primary" type="submit" disabled={loading} >
-                                {loading ? <CircularProgress size={24} className="buttonProgress" /> : 'Submit'}
-                            </Button>
-                        </form>
-                    </div>
-                </div>
-                <style jsx>{`
-                        .pad-1{
-                        padding:1rem;
-                        }
-                `}</style>
-            </div>
+                        <div className="editor__wrapper">
+                            <h3>ID</h3>
+                            <Editor handleEditorChange={handleEditorChange2} value={dataIntouch.intouch[0].content_id}/>
+                        </div>
+                        <Button className="button_submit" variant="outlined" color="primary" type="submit" disabled={loading} >
+                            {loading ? <CircularProgress size={24} className="buttonProgress" /> : 'Submit'}
+                        </Button>
+                    </form>
+                </TabPanel>
             </BigCardWrapper>
         </Drawer>
     )
