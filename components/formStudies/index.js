@@ -4,7 +4,9 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { Button, CircularProgress } from '@material-ui/core'
 import Dropzone from 'react-dropzone'
+
 import {url as globUrl} from '../../lib/api_url'
+import Editor from '../editor/index'
 
 import {useFormik } from 'formik'
 import * as Yup from 'yup';
@@ -16,6 +18,9 @@ const FormStudies = ({studies,idstudies,url,edit}) => {
     const [showRemove, setShowRemove] = useState('');
     const [imgFile, setImgFile] = useState([]);
     const [btnUpload, setBtnUpload] = useState(true);
+    const [contentEN, setContentEN] = useState(studies ? studies.studies[0].description_en : '');
+    const [contentID, setContentID] = useState(studies ? studies.studies[0].description_id : '');
+
     const router = useRouter()
 
     const dropzoneRef = createRef();
@@ -27,9 +32,6 @@ const FormStudies = ({studies,idstudies,url,edit}) => {
             initialValues: {
                 title_en:data.studies[0].title_en,
                 title_id:data.studies[0].title_id,
-                desc_en:data.studies[0].description_en,
-                desc_id:data.studies[0].description_id,
-                desc_id:data.studies[0].description_id,
             },
             validationSchema: Yup.object({
             }),
@@ -37,8 +39,8 @@ const FormStudies = ({studies,idstudies,url,edit}) => {
                 setLoading(true)
 
                 const dataForm = new FormData()
-                dataForm.append('desc_en', values.desc_en)
-                dataForm.append('desc_id', values.desc_id)
+                dataForm.append('desc_en', contentEN)
+                dataForm.append('desc_id', contentID)
                 dataForm.append('title_en', values.title_en)
                 dataForm.append('title_id', values.title_id)
                 dataForm.append('idstudies', idstudies)
@@ -54,8 +56,8 @@ const FormStudies = ({studies,idstudies,url,edit}) => {
                     setLoading(false)
                     alert('berhasil')
                     router.push(window.location.pathname)
-
                 })
+                // console.log(contentID);
             },
         });
     } else {
@@ -63,9 +65,7 @@ const FormStudies = ({studies,idstudies,url,edit}) => {
             enableReinitialize:true,
             initialValues: {
                 title_en:'',
-                title_id:'',
-                desc_en:'',
-                desc_id:''
+                title_id:''
             },
             validationSchema: Yup.object({
             }),
@@ -73,8 +73,8 @@ const FormStudies = ({studies,idstudies,url,edit}) => {
                 setLoading(true)
 
                 const dataForm = new FormData()
-                dataForm.append('desc_en', values.desc_en)
-                dataForm.append('desc_id', values.desc_id)
+                dataForm.append('desc_en', contentEN)
+                dataForm.append('desc_id', contentID)
                 dataForm.append('title_en', values.title_en)
                 dataForm.append('title_id', values.title_id)
                 dataForm.append('file', imgFile)
@@ -87,10 +87,12 @@ const FormStudies = ({studies,idstudies,url,edit}) => {
                 .then((dataRes) => {
                     console.log('Success:', dataRes);
                     setLoading(false)
+                    alert('berhasil')
                     setTimeout(() => {
                         router.push('/studies')
                     }, 1500);
                 })
+
             },
         });
     }
@@ -134,6 +136,14 @@ const FormStudies = ({studies,idstudies,url,edit}) => {
         }
     };
 
+    function handleEditorChangeEN(content) {
+        setContentEN(content)
+    }
+
+    function handleEditorChangeID(content) {
+        setContentID(content)
+    }
+
     React.useEffect(() => {
         if (edit === true) {
             setImgUrl( `${globUrl}/images/${studies.studies[0].imageName}`)
@@ -161,7 +171,7 @@ const FormStudies = ({studies,idstudies,url,edit}) => {
                     )}
                     </Dropzone>
                     <TextField
-                        label="Case Study EN" 
+                        label="Case Study EN"
                         variant="outlined"
                         margin="normal"
                         fullWidth
@@ -175,7 +185,7 @@ const FormStudies = ({studies,idstudies,url,edit}) => {
                         onChange={formik.handleChange} value={formik.values.title_en || ''}
                     />
                     <TextField
-                        label="Case Study ID" 
+                        label="Case Study ID"
                         variant="outlined"
                         margin="normal"
                         fullWidth
@@ -188,36 +198,14 @@ const FormStudies = ({studies,idstudies,url,edit}) => {
                         helperText={formik.errors.title_id && formik.touched.title_id ? formik.errors.title_id : null}
                         onChange={formik.handleChange} value={formik.values.title_id || ''}
                     />
-                    <TextField
-                        label="Description EN" 
-                        variant="outlined"
-                        margin="normal"
-                        fullWidth
-                        name="desc_en"
-                        placeholder="Description EN"
-                        type="text"
-                        id="desc_en"
-                        multiline
-                        rows={6}
-                        error={formik.errors.desc_en && formik.touched.desc_en ? true : null}
-                        helperText={formik.errors.desc_en && formik.touched.desc_en ? formik.errors.desc_en : null}
-                        onChange={formik.handleChange} value={formik.values.desc_en || ''}
-                    />
-                    <TextField
-                        label="Description ID" 
-                        variant="outlined"
-                        margin="normal"
-                        fullWidth
-                        name="desc_id"
-                        placeholder="Description ID"
-                        type="text"
-                        id="desc_id"
-                        multiline
-                        rows={6}
-                        error={formik.errors.desc_id && formik.touched.desc_id ? true : null}
-                        helperText={formik.errors.desc_id && formik.touched.desc_id ? formik.errors.desc_id : null}
-                        onChange={formik.handleChange} value={formik.values.desc_id || ''}
-                    />
+                    <div style={{marginBottom:'4rem',marginTop:'4rem'}}>
+                        <h3>EN</h3>
+                        <Editor handleEditorChange={handleEditorChangeEN} value={contentEN}/>
+                    </div>
+                    <div >
+                        <h3>ID</h3>
+                        <Editor handleEditorChange={handleEditorChangeID} value={contentID}/>
+                    </div>
                 </Grid>
             </Grid>
             <Grid item xs={12} className="button_wrapper">

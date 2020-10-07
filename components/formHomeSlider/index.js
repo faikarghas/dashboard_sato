@@ -60,6 +60,7 @@ const FormHomeSlider = ({homeSlider,idHomeSlider,url,edit}) => {
             .then((response) => response.json())
             .then((dataRes) => {
                 setLoading(false)
+                alert('berhasil')
                 router.replace(window.location.pathname)
             })
         }

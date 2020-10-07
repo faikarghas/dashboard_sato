@@ -67,6 +67,7 @@ const FormOurTeam = ({ourTeam,idOurTeam,url,edit}) => {
                 .then((dataRes) => {
                     console.log('Success:', dataRes);
                     setLoading(false)
+                    alert('berhasil')
                     setTimeout(() => {
                         router.push('/our-team')
                     }, 1500);

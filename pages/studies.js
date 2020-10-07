@@ -35,7 +35,8 @@ function Studies({dataStudies}) {
 
 
 Studies.getInitialProps = async (ctx) => {
-    const host = ctx.req ? ctx.req.headers['host'] : 'localhost:3014'
+    const { origin } = absoluteUrl(ctx.req, "localhost:3014");
+
     const pageRequest = `${origin}/api/studies`
     const res = await fetch(pageRequest)
     const json = await res.json()

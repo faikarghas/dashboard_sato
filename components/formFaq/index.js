@@ -75,6 +75,7 @@ const Faq = ({faq,idFaq,url,edit}) => {
                 .then((dataRes) => {
                     console.log('Success:', dataRes);
                     setLoading(false)
+                    alert('berhasil')
                     setTimeout(() => {
                         router.push('/faq')
                     }, 1500);

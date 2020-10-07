@@ -83,6 +83,7 @@ const FormCareer = ({career,idCareer,url,edit}) => {
                 .then((dataRes) => {
                     console.log('Success:', dataRes);
                     setLoading(false)
+                    alert('berhasil')
                     setTimeout(() => {
                         router.push('/career')
                     }, 1500);

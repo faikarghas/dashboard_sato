@@ -135,6 +135,7 @@ const FormProject = ({project,idProject,url,edit}) => {
                 .then((dataRes) => {
                     console.log('Success:', dataRes);
                     setLoading(false)
+                    alert('berhasil')
                     setTimeout(() => {
                         router.push('/projects')
                     }, 1500)
