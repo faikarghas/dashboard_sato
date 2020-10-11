@@ -33,7 +33,7 @@ function Partnership({dataPartnership}) {
     function handleSubmit(e) {
         e.preventDefault()
         setLoading(true)
-        fetch(`http://localhost:3009/api/insertPartnership`,{
+        fetch(`${url}/api/insertPartnership`,{
             method:'POST',
             headers:{'Content-Type':'application/json'},
             body:JSON.stringify({content:data,content_id:content_id})

@@ -3,16 +3,12 @@ import { Editor } from '@tinymce/tinymce-react';
 
 const Index = ({handleEditorChange,value}) => {
     const [data,setData] = useState()
+    const [showEditor,setShowEditor] = useState(false)
 
-    useEffect(() => {
-        if (value) {
-            setData(value)
-        }
-    }, [])
-
-    return (
-        <div>
-            <Editor
+    function editor(params) {
+        if (showEditor) {
+            return (
+                <Editor
                 apiKey="km7wsp269bqjenfxf5r5banl2er87uzvs8mcp6ep28s9x53z"
                 value={data}
                 onEditorChange={handleEditorChange}
@@ -22,6 +18,22 @@ const Index = ({handleEditorChange,value}) => {
                     plugins: "paste",
                 }}
             />
+            )
+        } else {
+            return (<p>Loading ...</p>)
+        }
+    }
+
+    useEffect(() => {
+        setShowEditor(true)
+        if (value) {
+            setData(value)
+        }
+    }, [])
+
+    return (
+        <div>
+            {editor()}
         </div>
     )
 }

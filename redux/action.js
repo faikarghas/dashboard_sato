@@ -9,7 +9,7 @@ export const authenticate = (email,password) => {
 
     let pa = new Promise(function (resolve,reject) {
 
-      fetch('https://api.bintarojayahighrise.com/api/authLogin',{
+      fetch('https://api.sato.id/api/authLogin',{
         method:"POST",
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({
