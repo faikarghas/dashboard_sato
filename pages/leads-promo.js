@@ -51,7 +51,7 @@ LeadsPromo.getInitialProps = async (ctx) => {
     const token = ctx.store.getState().token;
 
     // set gettoken to false if no token in cookies
-    if(!token && token !== undefined && ctx.pathname === '/leads'){
+    if(!token && token !== undefined && ctx.pathname === '/leads-promo'){
         if(process.browser){
             Router.push('/login')
         }

@@ -44,11 +44,12 @@ HomeSlider.getInitialProps = async (ctx) => {
 
 
     if(ctx.res){
-      ctx.res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+        ctx.res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
     }
+
     if(ctx && !process.browser) {
         if(ctx.req.headers.cookie) {
-          ctx.store.dispatch(action.reauthenticate(getCookie('token', ctx.req),getCookie('idusers', ctx.req)))
+            ctx.store.dispatch(action.reauthenticate(getCookie('token', ctx.req),getCookie('idusers', ctx.req)))
         }
     }
 
@@ -58,6 +59,8 @@ HomeSlider.getInitialProps = async (ctx) => {
     if(!token && token !== undefined && ctx.pathname === '/home-slider'){
         if(process.browser){
             Router.push('/login')
+        } else {
+
         }
     }
 

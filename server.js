@@ -43,11 +43,11 @@ app.prepare()
         }
     });
 
-    server.get('/leads', (req, res) => {
+    server.get('/home-slider', (req, res) => {
         if(!req.cookies.token) {
           res.redirect('/login');
         } else {
-          return app.render(req, res, '/leads', req.query);
+          return app.render(req, res, '/home-slider', req.query);
         }
     });
 
