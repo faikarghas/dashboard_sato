@@ -15,7 +15,9 @@ const Index = ({handleEditorChange,value}) => {
                 init={{
                     content_style: ".mce-content-body p {color: #4d4d4d; font-family: galano-light; font-size: 16px; text-align: justify; margin:0;}",
                     paste_as_text: true,
-                    plugins: "paste",
+                    plugins: 'media print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern help paste',
+                    image_advtab: true,
+                    file_picker_types: 'file image media'
                 }}
             />
             )

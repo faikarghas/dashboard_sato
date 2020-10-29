@@ -18,6 +18,8 @@ import Editor from '../components/editor/index'
 import ListOtherProject from '../components/listOtherProjects/index'
 import IntouchTable from '../components/tableIntouch/index'
 import {url} from '../lib/api_url'
+import FormUploadImg from '../components/formUploadImgIntouch';
+import TableImgIntouch from '../components/tableImgIntouch'
 
 function a11yProps(index) {
     return {
@@ -44,7 +46,7 @@ function TabPanel(props) {
     );
 }
 
-function Intouch({dataIntouch,listOtherProject,listProject}) {
+function Intouch({dataIntouch,listOtherProject,listProject,listImageIntouch}) {
     const [data, setData] = useState(dataIntouch.intouch[0].content)
     const [content_id, setContent_id] = useState(dataIntouch.intouch[0].content_id)
     const [loading, setLoading] = useState(false)
@@ -85,6 +87,7 @@ function Intouch({dataIntouch,listOtherProject,listProject}) {
                     <Tabs value={value} onChange={handleChangeTab} aria-label="simple tabs example">
                     <Tab label="List" {...a11yProps(0)} />
                     <Tab label="Description" {...a11yProps(1)} />
+                    <Tab label="Upload Image" {...a11yProps(2)} />
                     </Tabs>
                 </AppBar>
                 <TabPanel value={value} index={0}>
@@ -104,6 +107,10 @@ function Intouch({dataIntouch,listOtherProject,listProject}) {
                             {loading ? <CircularProgress size={24} className="buttonProgress" /> : 'Submit'}
                         </Button>
                     </form>
+                </TabPanel>
+                <TabPanel value={value} index={2}>
+                    <FormUploadImg edit={false}  url={`${url}/api/insertImageIntouch`}/>
+                    <TableImgIntouch dataImg={listImageIntouch.message}/>
                 </TabPanel>
             </BigCardWrapper>
         </Drawer>
@@ -126,6 +133,10 @@ Intouch.getInitialProps = async (ctx) => {
     const res3 = await fetch(pageRequest3)
     const json3 = await res3.json()
 
+    const pageRequest4 = `https://api.sato.id/api/getImageIntouch`
+    const res4 = await fetch(pageRequest4)
+    const json4 = await res4.json()
+
 
     if(ctx.res){
       ctx.res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
@@ -145,7 +156,7 @@ Intouch.getInitialProps = async (ctx) => {
         }
     }
 
-    return { dataIntouch: json, listOtherProject: json2, listProject:json3 }
+    return { dataIntouch: json, listOtherProject: json2, listProject:json3, listImageIntouch: json4 }
 }
 
 

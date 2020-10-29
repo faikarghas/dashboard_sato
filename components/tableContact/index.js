@@ -63,6 +63,17 @@ const Index = ({dataContact}) => {
       </IconButton>
     );
 
+    function date(time) {
+      let month = new Date(time).getMonth() + 1
+      let date = new Date(time).getDate()
+      let year = new Date(time).getFullYear()
+
+      return (
+        <div>{date}-{month}-{year}</div>
+      )
+    }
+
+
     const columns = React.useMemo(clickHandler => [
         {
           name: 'Name',
@@ -76,12 +87,24 @@ const Index = ({dataContact}) => {
             sortable: true,
             grow: 2,
         },
-        // {
-        //   cell: (row) => <Switch id={row.id} name={row.pembicara_nama} status={row.status}/>,
-        //   allowOverflow: true,
-        //   button: true,
-        //   width:'56px'
-        // },
+        {
+          name: 'Phone Number',
+          selector: 'phoneNumber',
+          sortable: true,
+          grow: 2,
+        },
+        {
+          name: 'Message',
+          selector: 'message',
+          sortable: true,
+          grow: 4,
+        },
+        {
+          name: 'Date',
+          cell: (row) => {return (<p>{date(row.date)}</p>)},
+          grow: 4,
+          sortable: true,
+        },
     ]);
 
 
