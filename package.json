@@ -24,6 +24,7 @@
     "cssnano": "^4.1.10",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "file-saver": "^2.0.2",
     "filepond": "^4.19.2",
     "filepond-plugin-image-exif-orientation": "^1.0.9",
     "filepond-plugin-image-preview": "^4.6.4",
@@ -52,6 +53,7 @@
     "sql-template-strings": "^2.2.2",
     "styled-components": "^5.1.1",
     "sweetalert": "^2.1.2",
+    "xlsx": "^0.16.8",
     "yup": "^0.28.5"
   }
 }

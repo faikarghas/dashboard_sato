@@ -18,7 +18,7 @@ function Leads({dataContact}) {
             <div className="pad-">
                 <div className="tab-content" id="myTabContent">
                     <div className="tab-pane fade show active" id="mei" role="tabpanel" aria-labelledby="mei-tab">
-                        <ContactTable dataContact={dataContact} />
+                        <ContactTable dataContact={dataContact} fileName="Kontak"/>
                     </div>
                 </div>
                 <style jsx>{`

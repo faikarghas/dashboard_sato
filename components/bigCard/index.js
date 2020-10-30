@@ -9,7 +9,7 @@ const Index = (props) => {
             <style jsx>{`
                 .big-card{
                     background-color:white;
-                    margin: 50px 160px;
+                    margin: 50px 100px;
                     padding: 20px;
                     box-shadow: rgba(0, 0, 0, 0.12) 0px 5px 10px 0px;
                 }

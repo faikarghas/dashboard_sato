@@ -1,17 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import DataTable from 'react-data-table-component';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import IconButton from '@material-ui/core/IconButton';
-import Add from '@material-ui/icons/Add';
-import Link from 'next/link'
-import swal from 'sweetalert';
-import {url as globUrl} from '../../lib/api_url'
-
-import Switch from '../toggleSwitch/index'
-
-import {convertMonth} from '../../lib/date'
-
+import DownloadButton from '../downloadToExcel'
 
 const customStyles = {
     headRow: {
@@ -41,26 +30,11 @@ const customStyles = {
 };
 
 
-const Index = ({dataContact}) => {
+const Index = ({dataContact,fileName}) => {
     const [data,setData] = useState([])
-    const [open, setOpen] = useState('');
-
-    const handleOpen = () => {
-      setOpen('open');
-    };
-
-    const handleClose = () => {
-      setOpen('');
-    };
 
     const actions = (
-      <IconButton
-        color="primary"
-        className="IconButtonCustom"
-        onClick={handleOpen}
-      >
-        <Add  />
-      </IconButton>
+      <DownloadButton csvData={dataContact} fileName={fileName}/>
     );
 
     function date(time) {
@@ -79,30 +53,30 @@ const Index = ({dataContact}) => {
           name: 'Name',
           selector: 'name',
           sortable: true,
-          grow: 2,
+          grow: 3,
         },
         {
             name: 'Email',
             selector: 'email',
             sortable: true,
-            grow: 2,
+            grow: 3,
         },
         {
           name: 'Phone Number',
           selector: 'phoneNumber',
           sortable: true,
-          grow: 2,
+          grow: 4,
         },
         {
           name: 'Message',
           selector: 'message',
           sortable: true,
-          grow: 4,
+          grow: 3,
         },
         {
           name: 'Date',
           cell: (row) => {return (<p>{date(row.date)}</p>)},
-          grow: 4,
+          grow: 3,
           sortable: true,
         },
     ]);
@@ -113,7 +87,6 @@ const Index = ({dataContact}) => {
     }, [])
 
     return (
-        <React.Fragment>
         <DataTable
             columns={columns}
             data={data} //props
@@ -121,16 +94,8 @@ const Index = ({dataContact}) => {
             customStyles={customStyles}
             highlightOnHover
             pointerOnHover
+            actions={actions}
         />
-          <div className={`overlay__modal ${open}`}></div>
-          <div className={`modal__upload ${open}`}>
-            <div className="modal__header">
-              <p className="close__upload" onClick={handleClose}>X</p>
-            </div>
-            <div className="modal__body">
-            </div>
-          </div>
-          </React.Fragment>
     )
 }
 
