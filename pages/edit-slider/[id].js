@@ -49,13 +49,11 @@ const EditHomeSlider = ({homeSlider}) => {
 
 
     return (
-        <Drawer>
+        // <Drawer>
             <BigCardWrapper>
-                <TabPanel value={value} index={0}>
                     <FormHomeSlider edit={true} url={`${url}/api/editHomeSlider`} idHomeSlider={homeSlider.homeSlider[0].idhomeslider} homeSlider={homeSlider}/>
-                </TabPanel>
             </BigCardWrapper>
-        </Drawer>
+        // </Drawer>
     )
 }
 
