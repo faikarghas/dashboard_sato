@@ -180,15 +180,15 @@ function Projects({dataProject,dataProjectTitle,dataCategory}) {
 Projects.getInitialProps = async (ctx) => {
     const { origin } = absoluteUrl(ctx.req, "localhost:3014");
 
-    const pageRequest = `${origin}/api/project`
+    const pageRequest = `https://api.sato.id/api/project`
     const res = await fetch(pageRequest)
     const json = await res.json()
 
-    const pageRequest2 = `${origin}/api/project`
+    const pageRequest2 = `https://api.sato.id/api/project`
     const res2 = await fetch(pageRequest2)
     const json2 = await res2.json()
 
-    const pageRequest3 = `${origin}/api/category`
+    const pageRequest3 = `https://api.sato.id/api/category`
     const res3 = await fetch(pageRequest3)
     const json3 = await res3.json()
 
