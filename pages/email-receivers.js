@@ -22,7 +22,7 @@ function EmailRe({dataEmailRe}) {
     function submitValue(params) {
         setLoading(true)
 
-        fetch('http://localhost:3009/api/insertEmail',{
+        fetch('https://api.sato.id/api/insertEmail',{
           method:'POST',
           headers:{'Content-Type':'application/json'},
           body:JSON.stringify({email:email})

@@ -14,7 +14,7 @@ const EditIntouch = ({intouch,idintouchslider}) => {
     return (
         <Drawer>
             <BigCardWrapper>
-                <FormIntouch edit={true} url={`${url}/api/editIntouchSlider`} intouch={intouch} idintouchslider={idintouchslider}/>
+                <FormIntouch edit={true} url={`http://localhost:3009/api/editIntouchSlider`} intouch={intouch} idintouchslider={idintouchslider}/>
             </BigCardWrapper>
         </Drawer>
     )
